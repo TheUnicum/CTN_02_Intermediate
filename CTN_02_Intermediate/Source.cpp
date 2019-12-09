@@ -1,21 +1,12 @@
-class Foo
-{
-public:
-	int bar;
-	int baz;
-	char fizz;
-};
-
 int main()
 {
-	Foo myFoo;
+	// 12: 10
+	int arr[4] = { 10, 11, 12, 13 };
+	
+	int* pInt = &arr[1];
 
-	Foo* pFoo = &myFoo;
-
-	int* pInt = &myFoo.baz;
-
-	char* pChar = &(*pFoo).fizz;
-	char* pChar = &pFoo->fizz;
+	*pInt = 69;
+	pInt[2] = 69;
 
 	return 0;
 }

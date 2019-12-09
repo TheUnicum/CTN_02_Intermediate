@@ -1,18 +1,20 @@
+
+int Sum(int* p, int size)
+{
+	int sum = 0;
+	for (int i = 0; i < size; i++)
+	{
+		sum += p[i];
+	}
+
+	return sum;
+}
+
 int main()
 {
-	// 12: 10
-	int arr[4] = { 10, 11, 12, 13 };
-	
-	int* pInt = &arr[1];
-	*arr = 4;
-
-	*pInt = 69;
-	pInt[0] = 70;
-	pInt[2] = 69;
-
-
-	int sizep = sizeof(pInt);
-	int sizes = sizeof(arr);
-
+	int arr[4] = { 1, 2, 3, 4};
+	int resultA = Sum(arr, 4);
+	int resultB = Sum(&arr[0], 4);
+	int resultC = Sum(&arr[1], 2);
 	return 0;
 }

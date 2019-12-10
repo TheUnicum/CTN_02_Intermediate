@@ -118,6 +118,13 @@ int main()
 		chili::print("\nSome kind of fail!");
 	}
 
+	std::ofstream out("out.txt");
+
+	for (char c = _getch(); c != 13; c = _getch())
+	{
+		out.put(c);
+	}
+
 	while (!_kbhit());
 	return 0;
 }

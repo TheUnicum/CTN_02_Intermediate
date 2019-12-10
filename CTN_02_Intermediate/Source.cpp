@@ -1,4 +1,5 @@
 #include <conio.h>
+#include <algorithm>
 
 void print(const char* s)
 {
@@ -36,28 +37,63 @@ int str2int(const char* s)
 		place *= 10;
 	}
 	return val;
+}
 
-	// Test for single char
-	//if (*s >= '0' && *s <= '9')
-	//{
-	//	return *s - '0';
-	//}
-	//return -1;
+void int2str(const int n,char* buf )
+{
+	int num = n;
+
+	char* p = buf;
+	do
+	{
+		int dig = num % 10;
+		num = num / 10;
+		
+		*p = dig + '0';
+		p++;
+
+	} while (num > 0); 
+	*p = 0;
+}
+
+void inv(char* buf)
+{
+	int size = 0;
+	for (char* p = buf; *p != 0; p++)
+	{
+		size++;
+	}
+
+	for (char* rp = buf + size-1; buf < rp; buf++, rp--)
+	{
+		std::swap(*buf, *rp);
+	}
+
+}
+
+int fib(int n)
+{
+	if (n < 2)
+	{
+		return n;
+	}
+	return fib(n - 1) + fib(n - 2);
 }
 
 int main()
 {
-	print("how many pubes? ");
+	print("Enter a number> ");
 	char answer[69];
 	read(answer, 69);
 
-	const int pubeCount = str2int(answer);
+	const int fibNumber = str2int(answer);
 
+	const int fibAnswer = fib(fibNumber);
+
+	int2str(fibAnswer,  answer);
+	inv(answer);
 	print("\n");
-	for (int n = 0; n < pubeCount; n++)
-	{
-		print("Pubes!\n");
-	}
+	print(answer);
 
 	while (!_kbhit());
 	return 0;

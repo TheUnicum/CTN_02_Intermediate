@@ -178,7 +178,7 @@ namespace chili
 	};
 }
 
-int main()
+void dodb()
 {
 	chili::DataBase db;
 	char buffer[256];
@@ -221,8 +221,29 @@ int main()
 			quitting = true;
 			break;
 		}
-	}
+	} 
 	while (!quitting);
+}
 
+int main()
+{
+	std::ifstream warp_file("warp.txt");
+	constexpr int file_size = 3359549 + 1;
+	char warp_string[file_size];
+
+	// reading file into array
+	int i = 0;
+	for (char c = warp_file.get(); warp_file.good(); c = warp_file.get())
+	{
+		warp_string[i++] = c;
+	}
+	warp_string[i] = 0;
+
+	// display actual number of bytes copied int array
+	char buffer[256];
+	chili::int2str(i, buffer, sizeof(buffer));
+	chili::print(buffer);
+
+	while (!_kbhit());
 	return 0;
 }

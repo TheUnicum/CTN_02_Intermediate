@@ -80,20 +80,23 @@ namespace chili
 
 int main()
 {
-	const char data[] = "abc\n\n123";
+#define READ 1;
 
-	std::ofstream outT("crlfText.bin");
-	std::ofstream outB("crlfBin.bin", std::ios::binary);
+#if !READ
 
-	for (char c : data)
-	{
-		if (c == 0)
-		{
-			break;
-		}
-		outT.put(c);
-		outB.put(c);
-	}
+	const int myInt = 6942069;
+	std::ofstream out("boi.dat", std::ios::binary);
+
+	out.write(reinterpret_cast<const char*>(&myInt), sizeof(myInt));
+#else
+	std::ifstream in("boi.dat", std::ios::binary);
+	int data;
+	in.read(reinterpret_cast<char*>(&data), sizeof(data));
+
+	char buffer[256];
+	chili::int2str(data, buffer, 256);
+	chili::print(buffer);
+#endif
 
 	while (!_kbhit());
 	return 0;

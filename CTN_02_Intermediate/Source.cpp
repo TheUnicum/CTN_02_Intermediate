@@ -82,13 +82,10 @@ int main()
 {
 	std::ifstream in("derp.txt");
 
-	_putch(-1); // At The end of the file.
-
-	while (in.good())
+	for (char c = in.get(); in.good(); c = in.get())
 	{
-		_putch(in.get());
+		_putch(c);
 	}
-
 
 	while (!_kbhit());
 	return 0;

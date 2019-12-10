@@ -1,5 +1,6 @@
 #include <conio.h>
 #include <fstream>
+#include <random>
 
 namespace chili
 {
@@ -227,9 +228,15 @@ void dodb()
 
 int main()
 {
-	std::ifstream warp_file("warp.txt");
-	constexpr int file_size = 3359549 + 1;
-	char* warp_string = new char[file_size];
+	char buffer[256];
+	chili::print("\nEnter file name: ");
+	chili::read(buffer, sizeof(buffer));
+	std::ifstream warp_file(buffer);
+	
+	warp_file.seekg(0, std::ios::end);
+	const int file_size = warp_file.tellg();;
+	warp_file.seekg(0, std::ios::beg);
+	char* warp_string = new char[file_size + 1];
 
 	// reading file into array
 	int i = 0;
@@ -239,13 +246,37 @@ int main()
 	}
 	warp_string[i] = 0;
 
-	// display actual number of bytes copied int array
-	char buffer[256];
-	chili::int2str(i, buffer, sizeof(buffer));
-	chili::print(buffer);
+	// repeatedly display random snippets until user press quits
+	const int snippet_size = 400;
+	std::minstd_rand rng(std::random_device{}());
+	std::uniform_int_distribution<int> dist(0, i - snippet_size);
+	bool quitting = false;
 
+	do 
+	{
+		chili::print("\n(r)ead a snippet or (q)uit?");
+		switch (_getch())
+		{
+		case'r':
+		{
+			_putch('\n');
+			_putch('\n');
+			const int iStart = dist(rng);
+			for (int i = iStart; i < iStart + snippet_size; i++)
+			{
+				_putch(warp_string[i]);
+			}
+			_putch('\n');
+			break;
+		}
+		case 'q':
+			quitting = true;
+			break;
+		}
+	}
+	while (!quitting);
+	
 	delete[] warp_string;
 
-	while (!_kbhit());
 	return 0;
 }

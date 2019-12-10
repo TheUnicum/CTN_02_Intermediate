@@ -1,20 +1,24 @@
 #include <conio.h>
 
+void print(const char* s)
+{
+	for (; *s != 0; s++)
+	{
+		_putch(*s);
+	}
+}
+
 int main()
 {
-	// Char literal
-	_putch('P');
-	_putch('u');
-	_putch('b');
-	_putch('e');
-	_putch('s');
+	char msg[] = { 'P','u','b','e','s','"','!','"','\n',0 };
+	char msg2[] = "Pubes\"!\"\n";	//WARNING extra element NULL in string
+	msg[0] = 'G';
+	print(msg);
+	print(msg2);
 
-	_putch(80);
-	_putch(117);
-	_putch(98);
-	_putch(101);
-	_putch(115);
-	_putch(33);
+	//
+	const char* waifu = "MYWIFE";
+	print(waifu);
 
 	while (!_kbhit());
 	return 0;

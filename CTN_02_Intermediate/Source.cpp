@@ -180,7 +180,7 @@ namespace chili
 
 void dodb()
 {
-	chili::DataBase db;
+	chili::DataBase* db = new chili::DataBase(); // old chili::DataBase db;
 	char buffer[256];
 	char buffer2[256];
 	bool quitting = false;
@@ -194,13 +194,13 @@ void dodb()
 		case 'l':
 			chili::print("\nEnter file name: ");
 			chili::read(buffer, sizeof(buffer));
-			db.Load(buffer);
+			db->Load(buffer);
 			_putch('\n');
 			break;
 		case 's':
 			chili::print("\nEnter file name: ");
 			chili::read(buffer, sizeof(buffer));
-			db.Save(buffer);
+			db->Save(buffer);
 			_putch('\n');
 			break;
 		case 'a':
@@ -208,13 +208,13 @@ void dodb()
 			chili::read(buffer, sizeof(buffer));
 			chili::print("\nEnter value: ");
 			chili::read(buffer2, sizeof(buffer2));
-			db.Add(buffer, chili::str2int(buffer2));
+			db->Add(buffer, chili::str2int(buffer2));
 			_putch('\n');
 			break;
 		case 'p':
 			chili::print("\n     Beautiful Chart Bitches!");
 			chili::print("\n     ------------------------\n\n");
-			db.print();
+			db->print();
 			_putch('\n');
 			break;
 		case 'q':
@@ -223,26 +223,30 @@ void dodb()
 		}
 	} 
 	while (!quitting);
+	
+	delete db;
 }
 
 int main()
 {
-	std::ifstream warp_file("warp.txt");
-	constexpr int file_size = 3359549 + 1;
-	char warp_string[file_size];
+	dodb();
 
-	// reading file into array
-	int i = 0;
-	for (char c = warp_file.get(); warp_file.good(); c = warp_file.get())
-	{
-		warp_string[i++] = c;
-	}
-	warp_string[i] = 0;
-
-	// display actual number of bytes copied int array
-	char buffer[256];
-	chili::int2str(i, buffer, sizeof(buffer));
-	chili::print(buffer);
+	//std::ifstream warp_file("warp.txt");
+	//constexpr int file_size = 3359549 + 1;
+	//char warp_string[file_size];
+	//
+	//// reading file into array
+	//int i = 0;
+	//for (char c = warp_file.get(); warp_file.good(); c = warp_file.get())
+	//{
+	//	warp_string[i++] = c;
+	//}
+	//warp_string[i] = 0;
+	//
+	//// display actual number of bytes copied int array
+	//char buffer[256];
+	//chili::int2str(i, buffer, sizeof(buffer));
+	//chili::print(buffer);
 
 	while (!_kbhit());
 	return 0;

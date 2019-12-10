@@ -82,9 +82,29 @@ int main()
 {
 	std::ifstream in("derp.txt");
 
+	if (!in)
+	{
+		chili::print("\nFail to  open file!");
+		while (!_kbhit());
+		return -1;
+	}
+
 	for (char c = in.get(); in.good(); c = in.get())
 	{
 		_putch(c);
+	}
+
+	if (in.bad())
+	{
+		chili::print("\nFucked up!");
+	}
+	else if (in.eof())
+	{
+		chili::print("\nSucceccfully reached end of file.");
+	}
+	else // in.fail
+	{
+		chili::print("\nSome kind of fail!");
 	}
 
 	while (!_kbhit());

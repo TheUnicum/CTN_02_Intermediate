@@ -20,27 +20,44 @@ void read(char* buf, int maxSize)
 	*buf = 0;
 }
 
+int str2int(const char* s)
+{
+	// scan to start point
+	const char* p = s;
+	for (; *p >= '0' && *p <= '9'; p++);
+	p--; // now p point to the last digit
+
+	int val = 0;
+	int place = 1;
+	// convert place and accumulate
+	for (; p >= s; p--)
+	{
+		val += (*p - '0') * place;
+		place *= 10;
+	}
+	return val;
+
+	// Test for single char
+	//if (*s >= '0' && *s <= '9')
+	//{
+	//	return *s - '0';
+	//}
+	//return -1;
+}
+
 int main()
 {
-	char msg[] = { 'P','u','b','e','s','"','!','"','\n',0 };
-	char msg2[] = "Pubes\"!\"\n";	//WARNING extra element NULL in string
-	msg[0] = 'G';
-	print(msg);
-	print(msg2);
+	print("how many pubes? ");
+	char answer[69];
+	read(answer, 69);
 
-	// Point to a constant STRING
-	const char* waifu = "MYWIFE\n";
-	print(waifu);
+	const int pubeCount = str2int(answer);
 
-	// Get a Character
-	char c = _getch();
-	_putch(c);
-
-	print("Type some shit: ");
-	char inbuf[69];
-	read(inbuf, 69);
-	print("\nYou typed: ");;
-	print(inbuf);
+	print("\n");
+	for (int n = 0; n < pubeCount; n++)
+	{
+		print("Pubes!\n");
+	}
 
 	while (!_kbhit());
 	return 0;

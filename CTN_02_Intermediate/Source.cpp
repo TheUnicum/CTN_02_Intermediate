@@ -8,6 +8,18 @@ void print(const char* s)
 	}
 }
 
+void read(char* buf, int maxSize)
+{
+	const char* const pEnd = buf + maxSize;
+	for (char c = _getch(); c != 13 && (buf + 1) < pEnd; c = _getch(), buf++)
+	{
+		_putch(c);
+		*buf = c;
+	}
+
+	*buf = 0;
+}
+
 int main()
 {
 	char msg[] = { 'P','u','b','e','s','"','!','"','\n',0 };
@@ -16,9 +28,19 @@ int main()
 	print(msg);
 	print(msg2);
 
-	//
-	const char* waifu = "MYWIFE";
+	// Point to a constant STRING
+	const char* waifu = "MYWIFE\n";
 	print(waifu);
+
+	// Get a Character
+	char c = _getch();
+	_putch(c);
+
+	print("Type some shit: ");
+	char inbuf[69];
+	read(inbuf, 69);
+	print("\nYou typed: ");;
+	print(inbuf);
 
 	while (!_kbhit());
 	return 0;

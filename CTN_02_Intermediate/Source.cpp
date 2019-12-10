@@ -1,5 +1,4 @@
 #include <conio.h>
-#include <algorithm>
 
 void print(const char* s)
 {
@@ -39,37 +38,48 @@ int str2int(const char* s)
 	return val;
 }
 
-void int2str(const int n,char* buf )
+void strrev(char* pl)
 {
-	int num = n;
+	// scan to start point
+	char* pr = pl;
+	for (; *pr != 0; pr++);
+	pr--;
 
-	char* p = buf;
-	do
+	for (; pl < pr; pl++, pr--)
 	{
-		int dig = num % 10;
-		num = num / 10;
-		
-		*p = dig + '0';
-		p++;
-
-	} while (num > 0); 
-	*p = 0;
-}
-
-void inv(char* buf)
-{
-	int size = 0;
-	for (char* p = buf; *p != 0; p++)
-	{
-		size++;
-	}
-
-	for (char* rp = buf + size-1; buf < rp; buf++, rp--)
-	{
-		std::swap(*buf, *rp);
+		const char temp = *pl;
+		*pl = *pr;
+		*pr = temp;
 	}
 
 }
+
+void int2str(int val,char* buf, int size)
+{
+	//int num = n;
+	//
+	//char* p = buf;
+	//do
+	//{
+	//	int dig = num % 10;
+	//	num = num / 10;
+	//	
+	//	*p = dig + '0';
+	//	p++;
+	//
+	//} while (num > 0); 
+	//*p = 0;
+
+	char* const pStart = buf;
+	char* const pEnd = buf + size;
+	for (; val > 0 && (buf + 1) < pEnd; val /= 10,buf++)
+	{
+		*buf = '0' + val % 10;
+	}
+	*buf = 0;
+	strrev(pStart);
+}
+
 
 int fib(int n)
 {
@@ -85,14 +95,13 @@ int main()
 	print("Enter a number> ");
 	char answer[69];
 	read(answer, 69);
+	
+	print("\nFibonacci number <");
+	print(answer);
+	print("> is: ");
 
-	const int fibNumber = str2int(answer);
-
-	const int fibAnswer = fib(fibNumber);
-
-	int2str(fibAnswer,  answer);
-	inv(answer);
-	print("\n");
+	const int fibNumber = fib(str2int(answer));
+	int2str(fibNumber, answer, 69);
 	print(answer);
 
 	while (!_kbhit());

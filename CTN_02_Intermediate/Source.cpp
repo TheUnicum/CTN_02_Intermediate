@@ -229,7 +229,7 @@ int main()
 {
 	std::ifstream warp_file("warp.txt");
 	constexpr int file_size = 3359549 + 1;
-	char warp_string[file_size];
+	char* warp_string = new char[file_size];
 
 	// reading file into array
 	int i = 0;
@@ -243,6 +243,8 @@ int main()
 	char buffer[256];
 	chili::int2str(i, buffer, sizeof(buffer));
 	chili::print(buffer);
+
+	delete[] warp_string;
 
 	while (!_kbhit());
 	return 0;

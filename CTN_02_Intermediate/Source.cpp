@@ -80,49 +80,19 @@ namespace chili
 
 int main()
 {
-	std::ifstream in("derp.txt");
+	const char data[] = "abc\n\n123";
 
-	if (!in)
+	std::ofstream outT("crlfText.bin");
+	std::ofstream outB("crlfBin.bin", std::ios::binary);
+
+	for (char c : data)
 	{
-		chili::print("\nFail to  open file!");
-		while (!_kbhit());
-		return -1;
-	}
-
-	in.seekg(0, std::ios_base::end);
-	const int lenght = in.tellg();
-
-	chili::print("File size: ");
-	char buffer[256];
-	chili::int2str(lenght, buffer, 256);
-	chili::print(buffer);
-	chili::print("\n");
-
-	in.seekg(0, std::ios_base::beg);
-
-	for (char c = in.get(); in.good(); c = in.get())
-	{
-		_putch(c);
-	}
-
-	if (in.bad())
-	{
-		chili::print("\nFucked up!");
-	}
-	else if (in.eof())
-	{
-		chili::print("\nSucceccfully reached end of file.");
-	}
-	else // in.fail
-	{
-		chili::print("\nSome kind of fail!");
-	}
-
-	std::ofstream out("out.txt");
-
-	for (char c = _getch(); c != 13; c = _getch())
-	{
-		out.put(c);
+		if (c == 0)
+		{
+			break;
+		}
+		outT.put(c);
+		outB.put(c);
 	}
 
 	while (!_kbhit());

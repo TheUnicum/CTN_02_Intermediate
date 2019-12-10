@@ -89,6 +89,9 @@ int main()
 		return -1;
 	}
 
+	in.seekg(44);
+	in.seekg(-43, std::ios_base::cur);
+
 	for (char c = in.get(); in.good(); c = in.get())
 	{
 		_putch(c);

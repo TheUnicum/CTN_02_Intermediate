@@ -233,6 +233,10 @@ public:
 	{
 		chili::print("Constructing SlaveA\n");
 	}
+	~SlaveA()
+	{
+		chili::print("Destructing SlaveA\n");
+	}
 };
 
 class SlaveB
@@ -241,6 +245,10 @@ public:
 	SlaveB()
 	{
 		chili::print("Constructing SlaveB\n");
+	}
+	~SlaveB()
+	{
+		chili::print("Destructing SlaveB\n");
 	}
 };
 
@@ -251,6 +259,10 @@ public:
 	{
 		chili::print("Constructing SlaveC\n");
 	}
+	~SlaveC()
+	{
+		chili::print("Destructing SlaveC\n");
+	}
 };
 
 class Master
@@ -260,6 +272,10 @@ public:
 	{
 		chili::print("Constructing Master\n");
 	}
+	~Master()
+	{
+		chili::print("Destructing Master\n");
+	}
 private:
 	SlaveA a;
 	SlaveB b;
@@ -268,7 +284,10 @@ private:
 
 int main()
 {
-	Master m;
+	{
+		Master m;
+	}
+
 	while (!_kbhit());
 	return 0;
 }

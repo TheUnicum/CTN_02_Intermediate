@@ -335,6 +335,20 @@ public:
 			pArray[i] = source[i];
 		}
 	}
+	DynamicIntArray& operator=(const DynamicIntArray& source) //Copy Assignment)
+	{
+		delete[] pArray;
+		pArray = nullptr;
+		pArray = new int[source.size];
+		size = source.size;
+
+		for (int i = 0; i < size; i++)
+		{
+			pArray[i] = source[i];
+		}
+
+		return *this;
+	}
 	~DynamicIntArray()
 	{
 		delete[] pArray;
@@ -368,6 +382,8 @@ int main()
 	{
 		DynamicIntArray arr1 = arr0;
 		arr1[3] = 1337;
+		arr1 = arr0;
+		arr1[3] = 765654;
 	}
 
 	chili::print("\narr0:");

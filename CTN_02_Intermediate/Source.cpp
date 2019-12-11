@@ -1,37 +1,25 @@
 #include <vector>
 #include <iostream>
-#include <limits>
 
-class Pube
+int CalcSum(int* pArray, int size)
 {
-public:
-	Pube()
+	int sum = 0;
+	for (int i = 0; i < size; i++)
 	{
-		std::cout << "Made a default pube." << std::endl;
+		sum += pArray[i];
 	}
-	Pube(const Pube& )
-	{
-		std::cout << "Copied a pube." << std::endl;
-	}
-	~Pube()
-	{
-		std::cout << "Destroyed pube." << std::endl;
-	}
-};
+	return sum;
+}
 
 int main()
 {
 	// https://it.cppreference.com/w/cpp/container/vector
+	std::vector<int> vec = { 1, 2, 3 };
 
-	std::vector<Pube> pubes(8); // makes 8 element
-	// reserve
-	// resize
-	// shrink_to_fit
-	// emplace_back
-
-	std::cout << pubes.capacity() << std::endl;
-	pubes.push_back(Pube{});
-	std::cout << pubes.capacity() << std::endl;
+	int sum = CalcSum(&vec[0], vec.size());
+	int sum2 = CalcSum(vec.data(), vec.size());
+	std::cout << sum << std::endl;
+	std::cout << sum2 << std::endl;
 
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

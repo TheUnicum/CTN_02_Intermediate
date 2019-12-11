@@ -246,18 +246,25 @@ public:
 class SlaveB
 {
 public:
-	SlaveB()
+	SlaveB()	//1. with const int y -> initialize in the constructor!
+		:
+		y(69)
 	{
 		chili::print("Default Constructing SlaveB\n");
 	}
-	SlaveB(const SlaveB& source)
+	//SlaveB(const SlaveB& source)	//2. with const int y -> IT IS possible use copyContructor default!
+	//{
+	//	chili::print("Copy Constructor SlaveB\n");
+	//}
+	SlaveB& operator=(const SlaveB& source) //2. with const int y -> NOT possible use copyAssignment default!
 	{
-		chili::print("Copy Constructor SlaveB\n");
+		return *this;
 	}
 	~SlaveB()
 	{
 		chili::print("Destructing SlaveB\n");
 	}
+	const int y;
 };
 
 class SlaveC
@@ -316,6 +323,7 @@ int main()
 		Master pubes;
 		Master m(2);
 		Master n(m); // Calls CopyContructor for all the embedded object!
+		pubes = m ;// Calls CopyAssignment for all the embedded object!
 	}
 
 	while (!_kbhit());

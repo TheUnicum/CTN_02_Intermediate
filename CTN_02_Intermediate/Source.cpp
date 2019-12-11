@@ -317,23 +317,24 @@ private:
 	int x;
 };
 
-class DynamicIntArray
+template<typename T>
+class DynamicArray
 {
 public:
-	DynamicIntArray(int size)
+	DynamicArray(int size)
 		:
 		size(size),
-		pArray(new int[size])
+		pArray(new T[size])
 	{}
-	DynamicIntArray(const DynamicIntArray& source)
+	DynamicArray(const DynamicArray& source)
 	{
 		*this = source;
 	}
-	DynamicIntArray& operator=(const DynamicIntArray& source) //Copy Assignment)
+	DynamicArray& operator=(const DynamicArray& source) //Copy Assignment)
 	{
 		delete[] pArray;
 		pArray = nullptr;
-		pArray = new int[source.size];
+		pArray = new T[source.size];
 		size = source.size;
 
 		for (int i = 0; i < size; i++)
@@ -343,22 +344,22 @@ public:
 
 		return *this;
 	}
-	~DynamicIntArray()
+	~DynamicArray()
 	{
 		delete[] pArray;
 		pArray = nullptr;
 	}
-	int& operator[](int index)
+	T& operator[](int index)
 	{
 		return pArray[index];
 	}
-	const int& operator[](int index) const
+	const T& operator[](int index) const
 	{
 		return pArray[index];
 	}
 private:
-	int size = 0;
-	int* pArray = nullptr;
+	T size = 0;
+	T* pArray = nullptr;
 };
 
 
@@ -366,7 +367,9 @@ int main()
 {
 	char buffer[256];
 
-	DynamicIntArray arr0(5);
+	DynamicArray<int> arr0(5);
+	DynamicArray<float> arr1(5);
+	DynamicArray<Master> arr2(5);
 	arr0[0] = 69;
 	arr0[3] = 420;
 
@@ -374,7 +377,7 @@ int main()
 	chili::print(buffer);
 
 	{
-		DynamicIntArray arr1 = arr0;
+		DynamicArray<int> arr1 = arr0;
 		arr1[3] = 1337;
 		arr1 = arr0;
 		arr1[3] = 765654;

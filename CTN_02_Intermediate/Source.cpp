@@ -2,30 +2,27 @@
 #include <iostream>
 #include <limits>
 
+void f(const std::vector<int>& v)
+{}
+
 int main()
 {
-	std::cout << "How many? ";
-	int size;
-	std::cin >> size;
+	std::vector<int> vec1;
 
-	std::vector<int> vec1(size);
-
-	std::cout <<"\nYour vector contains:";
-	for (int i = 0; i < size; i++)
+	while (true)
 	{
-		std::cout << " " << vec1[i];
+		std::cout << "Enter a number (negative number to quit); ";
+		int n;
+		std::cin >> n;
+		if (n < 0)
+		{
+			break;
+		}
+		vec1.push_back(n);
 	}
 
-	std::vector<int> vec2(size, 69);
 	std::cout << "\nYour vector contains:";
-	for (int i = 0; i < vec2.size(); i++)
-	{
-		std::cout << " " << vec2[i];
-	}
-
-	std::vector<int> vec3({69, 420, size});
-	std::cout << "\nYour vector contains:";
-	for (const int n : vec3)
+	for (const int n : vec1)
 	{
 		std::cout << " " << n;
 	}

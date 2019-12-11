@@ -231,7 +231,11 @@ class SlaveA
 public:
 	SlaveA()
 	{
-		chili::print("Constructing SlaveA\n");
+		chili::print("Default Constructing SlaveA\n");
+	}
+	SlaveA(const SlaveA& source)
+	{
+		chili::print("Copy Constructor SlaveA\n");
 	}
 	~SlaveA()
 	{
@@ -244,7 +248,11 @@ class SlaveB
 public:
 	SlaveB()
 	{
-		chili::print("Constructing SlaveB\n");
+		chili::print("Default Constructing SlaveB\n");
+	}
+	SlaveB(const SlaveB& source)
+	{
+		chili::print("Copy Constructor SlaveB\n");
 	}
 	~SlaveB()
 	{
@@ -261,6 +269,10 @@ public:
 	//}
 	SlaveC(int x)
 	{}
+	SlaveC(const SlaveC& source)
+	{
+		chili::print("Copy Constructor SlaveC\n");
+	}
 	~SlaveC()
 	{
 		chili::print("Destructing SlaveC\n");
@@ -270,29 +282,40 @@ public:
 class Master
 {
 public:
-	//Master()
-	//{
-	//	chili::print("Constructing Master\n");
-	//}
-	Master() = default; // This needs to be writen to perform a (Master m) with no paramiter
+	Master()
+	{
+		chili::print("Default Constructing Master\n");
+	}
 	Master(int x)
-		: c(x)
-	{}
+		:
+		x(x)
+	{
+		chili::print("int Param Contructing Master\n");
+	}
 	~Master()
 	{
-		chili::print("Destructing Master\n");
+		chili::print("Constructing Master\n");
+	}
+	Master(const Master& source)
+		:
+		a(source.a),
+		b(source.b),
+		x(source.x)
+	{
+		chili::print("Copy Constructor Master\n");
 	}
 private:
 	SlaveA a;
 	SlaveB b;
-	SlaveC c;
 	int x;
 };
 
 int main()
 {
 	{
-		Master m;
+		Master pubes;
+		Master m(2);
+		Master n(m); // Calls CopyContructor for all the embedded object!
 	}
 
 	while (!_kbhit());

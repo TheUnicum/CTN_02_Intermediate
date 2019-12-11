@@ -322,8 +322,19 @@ class DynamicIntArray
 public:
 	DynamicIntArray(int size)
 		:
+		size(size),
 		pArray(new int[size])
 	{}
+	DynamicIntArray(const DynamicIntArray& source)
+		:
+		size(source.size),
+		pArray(new int[source.size])
+	{
+		for (int i = 0; i < size; i++)
+		{
+			pArray[i] = source[i];
+		}
+	}
 	~DynamicIntArray()
 	{
 		delete[] pArray;
@@ -333,7 +344,12 @@ public:
 	{
 		return pArray[index];
 	}
+	const int& operator[](int index) const
+	{
+		return pArray[index];
+	}
 private:
+	int size = 0;
 	int* pArray = nullptr;
 };
 

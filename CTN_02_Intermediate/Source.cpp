@@ -293,7 +293,7 @@ public:
 	{
 		chili::print("Default Constructing Master\n");
 	}
-	Master(int x)
+	explicit Master(int x)
 		:
 		x(x)
 	{
@@ -303,7 +303,7 @@ public:
 	{
 		chili::print("Constructing Master\n");
 	}
-	Master(const Master& source)
+	explicit Master(const Master& source)
 		:
 		a(source.a),
 		b(source.b),
@@ -317,13 +317,17 @@ private:
 	int x;
 };
 
+void Func(Master m)
+{
+}
+
 int main()
 {
 	{
-		Master pubes;
-		Master m(2);
-		Master n(m); // Calls CopyContructor for all the embedded object!
-		pubes = m ;// Calls CopyAssignment for all the embedded object!
+		Master n(69);
+		Master doob = n;
+		Master doob2 = 420;
+		Func(1335);
 	}
 
 	while (!_kbhit());

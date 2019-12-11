@@ -58,6 +58,12 @@ public:
 	}
 	Stack& operator=(const Stack& src)
 	{
+		if (!Empty())
+		{
+			delete pTop;
+			pTop = nullptr;
+		}
+
 		if (!src.Empty())
 		{
 			pTop = new Element(*src.pTop);

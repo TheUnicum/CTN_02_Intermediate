@@ -317,18 +317,47 @@ private:
 	int x;
 };
 
-void Func(Master m)
+class DynamicIntArray
 {
-}
+public:
+	DynamicIntArray(int size)
+		:
+		pArray(new int[size])
+	{}
+	~DynamicIntArray()
+	{
+		delete[] pArray;
+		pArray = nullptr;
+	}
+	int& operator[](int index)
+	{
+		return pArray[index];
+	}
+private:
+	int* pArray = nullptr;
+};
+
 
 int main()
 {
-	{
-		Master n(69);
-		Master doob = n;
-		Master doob2 = 420;
-		Func(1335);
-	}
+	char buffer[256];
+
+	DynamicIntArray arr0(5);
+	arr0[0] = 69;
+	arr0[3] = 420;
+
+	chili::int2str(arr0[3], buffer, sizeof(buffer));
+	chili::print(buffer);
+
+	DynamicIntArray arr1 = arr0;
+	arr1[3] = 1337;
+
+	chili::print("\narr0:");
+	chili::int2str(arr0[3], buffer, sizeof(buffer));
+	chili::print(buffer);
+	chili::print("\narr1:");
+	chili::int2str(arr1[3], buffer, sizeof(buffer));
+	chili::print(buffer);
 
 	while (!_kbhit());
 	return 0;

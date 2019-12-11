@@ -255,10 +255,12 @@ public:
 class SlaveC
 {
 public:
-	SlaveC()
-	{
-		chili::print("Constructing SlaveC\n");
-	}
+	//SlaveC()
+	//{
+	//	chili::print("Constructing SlaveC\n");
+	//}
+	SlaveC(int x)
+	{}
 	~SlaveC()
 	{
 		chili::print("Destructing SlaveC\n");
@@ -274,6 +276,7 @@ public:
 	//}
 	Master() = default; // This needs to be writen to perform a (Master m) with no paramiter
 	Master(int x)
+		: c(x)
 	{}
 	~Master()
 	{

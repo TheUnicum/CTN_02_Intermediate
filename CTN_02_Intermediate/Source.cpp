@@ -2,30 +2,37 @@
 #include <iostream>
 #include <limits>
 
-void f(const std::vector<int>& v)
-{}
+class Pube
+{
+public:
+	Pube()
+	{
+		std::cout << "Made a default pube." << std::endl;
+	}
+	Pube(const Pube& )
+	{
+		std::cout << "Copied a pube." << std::endl;
+	}
+	~Pube()
+	{
+		std::cout << "Destroyed pube." << std::endl;
+	}
+};
 
 int main()
 {
-	std::vector<int> vec1;
+	// https://it.cppreference.com/w/cpp/container/vector
 
-	while (true)
-	{
-		std::cout << "Enter a number (negative number to quit); ";
-		int n;
-		std::cin >> n;
-		if (n < 0)
-		{
-			break;
-		}
-		vec1.push_back(n);
-	}
+	std::vector<Pube> pubes(8); // makes 8 element
+	// reserve
+	// resize
+	// shrink_to_fit
+	// emplace_back
 
-	std::cout << "\nYour vector contains:";
-	for (const int n : vec1)
-	{
-		std::cout << " " << n;
-	}
+	std::cout << pubes.capacity() << std::endl;
+	pubes.push_back(Pube{});
+	std::cout << pubes.capacity() << std::endl;
+
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cin.get();

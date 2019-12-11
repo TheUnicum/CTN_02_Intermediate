@@ -349,15 +349,17 @@ int main()
 	chili::int2str(arr0[3], buffer, sizeof(buffer));
 	chili::print(buffer);
 
-	DynamicIntArray arr1 = arr0;
-	arr1[3] = 1337;
+	{
+		DynamicIntArray arr1 = arr0;
+		arr1[3] = 1337;
+	}
 
 	chili::print("\narr0:");
 	chili::int2str(arr0[3], buffer, sizeof(buffer));
 	chili::print(buffer);
-	chili::print("\narr1:");
-	chili::int2str(arr1[3], buffer, sizeof(buffer));
-	chili::print(buffer);
+	//chili::print("\narr1:");
+	//chili::int2str(arr1[3], buffer, sizeof(buffer));
+	//chili::print(buffer);
 
 	while (!_kbhit());
 	return 0;

@@ -2,27 +2,26 @@
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <Windows.h>
+#include <sstream>
 
 int main()
 {
 	// https://it.cppreference.com/w/cpp/string/basic_string
-	std::string book;
-	std::ifstream in("warp.txt");
+	std::string dout = "Pubes!\n";
+	OutputDebugString(L"Bulllshit\n");
+	OutputDebugStringA(dout.c_str());
 
-	//std::cout << "Begin reading\n";
-	//char c;
-	//while (in >> c)
-	//{
-	//	book.push_back(c);
-	//}
-	//std::cout << "End reading\n";
+	int a = 223;
+	int b = 69;
+	float c = 420.69f;
+	dout = "some shit: a: " + std::to_string(a)
+		+ " b: " + std::to_string(b) + " c: " + std::to_string(c) + "\n";
+	OutputDebugStringA(dout.c_str());
 
-	for (int n = 0; n < 20; n++)
-	{
-		//in >> book;
-		std::getline(in, book);
-		std::cout << book << std::endl;
-	}
+	std::stringstream ss;
+	ss << "some shit: a: " << a << " b: " << b << " c: " << c << + "\n";
+	OutputDebugStringA(ss.str().c_str());
 
 	std::cin.get();
 	return 0;

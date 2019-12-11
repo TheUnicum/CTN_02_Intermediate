@@ -268,10 +268,13 @@ public:
 class Master
 {
 public:
-	Master()
-	{
-		chili::print("Constructing Master\n");
-	}
+	//Master()
+	//{
+	//	chili::print("Constructing Master\n");
+	//}
+	Master() = default; // This needs to be writen to perform a (Master m) with no paramiter
+	Master(int x)
+	{}
 	~Master()
 	{
 		chili::print("Destructing Master\n");
@@ -280,6 +283,7 @@ private:
 	SlaveA a;
 	SlaveB b;
 	SlaveC c;
+	int x;
 };
 
 int main()

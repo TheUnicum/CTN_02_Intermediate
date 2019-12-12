@@ -43,9 +43,15 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-    Surface surf = Surface("rgb.bmp");
+    Surface surf = Surface("dibr.bmp");
 	/********************************/
 };
+
+/*
+dib
+dib32
+dibr
+*/
 
 /*
 https://upload.wikimedia.org/wikipedia/commons/c/c4/BMPfileFormat.png

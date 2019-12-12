@@ -18,6 +18,19 @@ bool vector_contains_word(const std::vector<std::string>& vec, const std::string
 	return false;
 }
 
+std::vector<std::string> get_intersection(const std::vector<std::string>& vec1, const std::vector<std::string>& vec2)
+{
+	std::vector<std::string> intersection;
+	for (const auto& w : vec1)
+	{
+		if (vector_contains_word(vec2, w))
+		{
+			intersection.push_back(w);
+		}
+	}
+	return intersection;
+}
+
 std::vector<int> fill_buckets(const std::string& word)
 {
 	std::vector<int> buckets(26, 0);
@@ -53,7 +66,6 @@ int score_match(const std::string& word1, const std::string& word2)
 int main()
 {
 	std::vector<std::string> five_words;
-
 	{
 		std::ifstream five_word_file("sgb-words.txt");
 		for (std::string line; std::getline(five_word_file, line);)
@@ -66,9 +78,26 @@ int main()
 		}
 	}
 
+	std::vector<std::string> freq_words;
+	{
+		std::ifstream freq_word_file("20k.txt");
+		for (std::string line; std::getline(freq_word_file, line);)
+		{
+			if (line.empty())
+			{
+				continue;
+			}
+			freq_words.push_back(line);
+		}
+	}
+
+	freq_words.resize(2000);
+
+	auto filterd_words = get_intersection(five_words, freq_words);
+
 	std::mt19937 rng(std::random_device{}());
-	std::uniform_int_distribution<int> dist(0, five_words.size() - 1);
-	const std::string target = five_words[dist(rng)];
+	std::uniform_int_distribution<int> dist(0, filterd_words.size() - 1);
+	const std::string target = filterd_words[dist(rng)];
 
 	while (true)
 	{

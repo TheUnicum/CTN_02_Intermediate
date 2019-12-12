@@ -18,6 +18,9 @@
     <Text Include="sgb-words.txt">
       <Filter>File di risorse</Filter>
     </Text>
+    <Text Include="20k.txt">
+      <Filter>File di risorse</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

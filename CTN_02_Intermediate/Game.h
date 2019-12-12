@@ -46,3 +46,9 @@ private:
     Surface surf = Surface(100, 100);
 	/********************************/
 };
+
+/*
+https://upload.wikimedia.org/wikipedia/commons/c/c4/BMPfileFormat.png
+https://docs.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-bitmapfileheader
+https://docs.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader
+*/

@@ -18,7 +18,7 @@ private:
 	Color chroma;
 	const Surface& sprite;
 	std::vector<RectI> frames;
-	int iCurFrame;
+	int iCurFrame = 0;
 	float holdTime;
 	float curFrameTime = 0.0f;
 };

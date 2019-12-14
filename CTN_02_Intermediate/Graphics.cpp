@@ -328,7 +328,7 @@ void Graphics::DrawSpriteNonChroma(int x, int y, const Surface& s)
 
 void Graphics::DrawSpriteNonChroma(int x, int y, const RectI& srcRect, const Surface& s)
 {
-	DrawSpriteNonChroma(x, y, s.GetRect(), GetScreenRect(), s);
+	DrawSpriteNonChroma(x, y, srcRect, GetScreenRect(), s);
 }
 
 void Graphics::DrawSpriteNonChroma(int x, int y, RectI srcRect, const RectI& clip, const Surface& s)
@@ -371,7 +371,7 @@ void Graphics::DrawSprite(int x, int y, const Surface& s, Color chroma)
 
 void Graphics::DrawSprite(int x, int y, const RectI& srcRect, const Surface& s, Color chroma)
 {
-	DrawSprite(x, y, s.GetRect(), GetScreenRect(), s, chroma);
+	DrawSprite(x, y, srcRect, GetScreenRect(), s, chroma);
 }
 
 void Graphics::DrawSprite(int x, int y, RectI srcRect, const RectI& clip, const Surface& s, Color chroma)

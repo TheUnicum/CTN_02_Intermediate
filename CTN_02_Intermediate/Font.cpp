@@ -20,12 +20,22 @@ void Font::DrawText(const std::string& text, const Vei2& pos, Color color, Graph
 	auto curPos = pos;
 	for (auto c : text)
 	{
+		// on a newline character, reset x position and move down by 1 glyph height
+		if (c == '\n')
+		{
+			// carriage return
+			curPos.x = pos.x;
+			// line feed
+			curPos.y += glyphHeight;
+			// we don't want to advance the character position right for a new line
+			continue;
+		}
 		// only draw characters that are on the font sheet
 		// firstChar + 1 bacause might as well skip ' ' as well
 		if (c >= firstChar + 1 && c <= lastChar)
 		{
 			// use DrawSpriteSubstitute so that we can choose the color ot the font rendered
-			gfx.DrawSpriteSubstitute(curPos.x, pos.y, color, MapGlyphRect(c), surface, chroma);
+			gfx.DrawSpriteSubstitute(curPos.x, curPos.y, color, MapGlyphRect(c), surface, chroma);
 		}
 		// advance screen pos for next character
 		curPos.x += glyphWidth;

@@ -11,7 +11,7 @@ Character::Character(const Vec2& pos)
 	}
 	for (int i = (int)Sequence::StandingLeft; i < (int)Sequence::Count; i++)
 	{
-		animations.emplace_back(Animation(0, 90 + (i - (int)Sequence::StandingLeft), 90, 90, 1, sprite, 0.16f));
+		animations.emplace_back(Animation(0, 90 * (i - (int)Sequence::StandingLeft), 90, 90, 1, sprite, 0.16f));
 	}
 }
 

@@ -14,7 +14,7 @@ Font::Font(const std::string& filename, Color chroma)
 	assert(glyphHeight * nRows == surface.GetHeight());
 }
 
-void Font::DrawText(const std::string& text, const Vei2& pos, Graphics& gfx) const
+void Font::DrawText(const std::string& text, const Vei2& pos, Color color, Graphics& gfx) const
 {
 	// curPos is the pos that we are drawing to on the screen
 	auto curPos = pos;
@@ -24,7 +24,8 @@ void Font::DrawText(const std::string& text, const Vei2& pos, Graphics& gfx) con
 		// firstChar + 1 bacause might as well skip ' ' as well
 		if (c >= firstChar + 1 && c <= lastChar)
 		{
-			gfx.DrawSprite(curPos.x, pos.y, MapGlyphRect(c), surface, chroma);
+			// use DrawSpriteSubstitute so that we can choose the color ot the font rendered
+			gfx.DrawSpriteSubstitute(curPos.x, pos.y, color, MapGlyphRect(c), surface, chroma);
 		}
 		// advance screen pos for next character
 		curPos.x += glyphWidth;

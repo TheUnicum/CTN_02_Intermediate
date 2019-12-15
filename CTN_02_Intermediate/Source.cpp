@@ -9,25 +9,23 @@ public:
 
 int main()
 {
+	// https://en.cppreference.com/w/cpp/container/vector/erase
 	std::vector<int> v = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-	for (auto i = v.begin(), e = v.end(); i != e; i += 2)
+	// ERASE
+	//v.erase(v.begin() + 3);
+	//v.erase(v.begin() + 3, v.begin() + 6);
+	
+	//
+	auto i_invalidated = v.begin() + 4;
+	//v.erase(v.begin() + 3, v.begin() + 6);
+	v.push_back(69);
+	std::cout << *i_invalidated;
+
+	for (int val : v)
 	{
-		std::cout << *i << " ";
+		std::cout << val << " ";
 	}
-
-	std::cout << std::endl << (v.end() - v.begin()) << std::endl;
-
-
-	std::vector<Pubes> p = { {69}, {420} };
-	for (auto i = p.begin(), e = p.end(); i != e; i++)
-	{
-		std::cout << i->x << " ";
-	}
-
-	// Nice exception
-	//std::cout << *v.end();
-	//--v.begin();
 
 	std::cin.get();
 	return 0;

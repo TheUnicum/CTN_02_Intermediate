@@ -26,9 +26,18 @@ struct Pube
 };
 
 // write your remove_erase_if template function here!
+template<class T, typename P>
+void remove_erase_if(T& con, P pred)
+{
+	const auto new_end = std::remove_if(con.begin(), con.end(), pred);
+	con.erase(new_end, con.end());
+}
 
 // write your custom insertion operator here!
-
+std::ostream& operator<<(std::ostream& out, const Pube& rhs)
+{
+	return out << "(" << rhs.num << "," << rhs.str << ")";
+}
 int main()
 {
 	// materiel (do not modify!)
@@ -65,7 +74,24 @@ int main()
 	// output sorted meme list w/ score and name using custom insertion operator
 	std::cout << "<< Sort Memes >>" << std::endl;
 	{
-		// code goes here
+		// copy 4x
+		auto sorted = memes;
+		for (int  n = 0; n < 3; n++)
+		{
+			sorted.insert(sorted.end(), memes.begin(), memes.end());
+		}
+		// sort minor
+		std::sort(sorted.begin(), sorted.end(), [](const Pube& lhs, const Pube& rhs)
+		{
+			return lhs.str < rhs.str;
+		});
+		// sort major
+		std::stable_sort(sorted.begin(), sorted.end(), [](const Pube& lhs, const Pube& rhs)
+		{
+			return lhs.num > rhs.num;
+		});
+		// Write to console
+		std::copy(sorted.begin(), sorted.end(), std::ostream_iterator<Pube>(std::cout, "\n"));
 	}
 	std::cout << "============================================" << std::endl << std::endl;
 
@@ -74,7 +100,21 @@ int main()
 	// (can be done in single statement!)
 	std::cout << "<< Number Words to Digits >>" << std::endl;
 	{
-		// code goes here
+		std::transform(
+			std::istream_iterator<std::string>(std::istringstream(nambies)),
+			std::istream_iterator<std::string>(),
+			std::ostream_iterator<int>(std::cout),
+			[&numbers](const std::string& word)
+			{
+				return std::find_if(numbers.begin(), numbers.end(),
+					[&word](const Pube& p)
+					{
+						return p.str == word;
+					}
+				)->num;
+			}
+		);
+		std::cout << std::endl;
 	}
 	std::cout << "============================================" << std::endl << std::endl;
 
@@ -83,7 +123,16 @@ int main()
 	// don't use std::find_if or other searches
 	std::cout << "<< Digits to Number Words >>" << std::endl;
 	{
-		// code goes here
+		auto sorted = numbers;
+		std::sort(sorted.begin(), sorted.end());
+		std::transform(numpies.begin(), numpies.end(),
+			std::ostream_iterator<std::string>(std::cout, " "),
+			[&sorted](int n)
+			{
+				return sorted[n].str;
+			}
+		);
+		std::cout << std::endl;
 	}
 	std::cout << "============================================" << std::endl << std::endl;
 
@@ -92,7 +141,22 @@ int main()
 	// and output of course
 	std::cout << "<< Product >>" << std::endl;
 	{
-		// code goes here
+		//std::vector<int> nums;
+		//std::transform(
+		//	std::istream_iterator<std::string>(std::istringstream(nambies)),
+		//	std::istream_iterator<std::string>(),
+		//	std::back_inserter(nums),
+		//	[&numbers](const std::string& word)
+		//	{
+		//		return std::find_if(numbers.begin(), numbers.end(),
+		//			[&word](const Pube& p)
+		//			{
+		//				return p.str == word;
+		//			}
+		//		)->num;
+		//	}
+		//);
+		//std::cout << std::accumulate(nums.begin(), nums.end(), 1, std::multiplies<int>{}) << std::endl;
 	}
 	std::cout << "============================================" << std::endl << std::endl;
 
@@ -101,7 +165,10 @@ int main()
 	// output as comma separated list
 	std::cout << "<< Parallel Sum >>" << std::endl;
 	{
-		// code goes here
+		std::transform(numbers.begin(), numbers.end(), memes.begin(),
+			std::ostream_iterator<int>(std::cout, ", "), std::plus<int>{}
+		);
+		std::cout << std::endl;
 	}
 	std::cout << "============================================" << std::endl << std::endl;
 

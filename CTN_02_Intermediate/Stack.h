@@ -20,6 +20,7 @@ private:
 				pNext = new Element(*src.pNext);
 			}
 		}
+		Element& operator=(const Element&) = delete;
 		int GetVal() const
 		{
 			return val;
@@ -46,9 +47,37 @@ private:
 			delete pNext;
 			pNext = nullptr;
 		}
-	private:
+	// There is a way to keep these private
+	// by making Iterator a friend of Element
+	// but it is not worth the hassle(hoff)
+	// private:
 		int val;
 		Element* pNext = nullptr;	
+	};
+public:
+	class Iterator
+	{
+	public:
+		Iterator() = default;
+		Iterator(Element* pElement)
+			:
+			pElement(pElement)
+		{}
+		Iterator& operator++()
+		{
+			pElement = pElement->pNext;
+			return *this;
+		}
+		int& operator*()
+		{
+			return pElement->val;
+		}
+		bool operator!=(Iterator rhs) const
+		{
+			return pElement != rhs.pElement;
+		}
+	private:
+		Element* pElement = nullptr;
 	};
 public:
 	Stack() = default;
@@ -58,15 +87,18 @@ public:
 	}
 	Stack& operator=(const Stack& src)
 	{
-		if (!Empty())
+		if (&src != this)
 		{
-			delete pTop;
-			pTop = nullptr;
-		}
+			if (!Empty())
+			{
+				delete pTop;
+				pTop = nullptr;
+			}
 
-		if (!src.Empty())
-		{
-			pTop = new Element(*src.pTop);
+			if (!src.Empty())
+			{
+				pTop = new Element(*src.pTop);
+			}
 		}
 		return *this;
 	}
@@ -108,6 +140,14 @@ public:
 	bool Empty() const
 	{
 		return pTop == nullptr;
+	}
+	Iterator begin()
+	{
+		return { pTop };
+	}
+	Iterator end()
+	{
+		return {};
 	}
 private:
 	Element* pTop = nullptr;

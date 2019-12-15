@@ -66,8 +66,19 @@ int main()
 	private:
 		int thresh;
 	};
+
+	const int mypoop = 20;
+
 	//std::sort(vd.begin(), vd.end(), Dude::YLess{});
-	const auto new_end = std::remove_if(vd.begin(), vd.end(), ThresholdTestY{ 50 });
+	//const auto new_end = std::remove_if(vd.begin(), vd.end(), ThresholdTestY{ 50 });
+	// https://it.cppreference.com/w/cpp/language/lambda
+	const auto new_end = std::remove_if(vd.begin(), vd.end(), 
+		[thresh = mypoop + 10](const Dude& dude) mutable -> bool
+		{
+			thresh++;
+			return dude.GetY() > thresh;
+		}
+	);
 	vd.erase(new_end, vd.end());
 
 	for (const auto& d : vd)
@@ -75,6 +86,13 @@ int main()
 		d.Print(std::cout);
 		std::cout << std::endl;
 	}
+
+	// info
+	auto mylamb = [mypoop](const Dude& dude)
+	{
+		return dude.GetY() > mypoop;
+	};
+	bool resutl = mylamb(vd.front());
 
 	std::cin.get();
 	return 0;

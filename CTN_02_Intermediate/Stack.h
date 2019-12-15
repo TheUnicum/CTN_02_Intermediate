@@ -79,6 +79,30 @@ public:
 	private:
 		Element* pElement = nullptr;
 	};
+	class ConstIterator
+	{
+	public:
+		ConstIterator() = default;
+		ConstIterator(Element* pElement)
+			:
+			pElement(pElement)
+		{}
+		ConstIterator& operator++()
+		{
+			pElement = pElement->pNext;
+			return *this;
+		}
+		const int& operator*() const
+		{
+			return pElement->val;
+		}
+		bool operator!=(ConstIterator rhs) const
+		{
+			return pElement != rhs.pElement;
+		}
+	private:
+		const Element* pElement = nullptr;
+	};
 public:
 	Stack() = default;
 	Stack(const Stack& src)
@@ -146,6 +170,14 @@ public:
 		return { pTop };
 	}
 	Iterator end()
+	{
+		return {};
+	}	
+	ConstIterator begin() const
+	{
+		return { pTop };
+	}
+	ConstIterator end() const
 	{
 		return {};
 	}

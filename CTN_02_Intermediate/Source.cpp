@@ -28,6 +28,14 @@ public:
 			return lhs.y < rhs.y;
 		}
 	};
+	int GetX() const
+	{
+		return x;
+	}
+	int GetY() const
+	{
+		return y;
+	}
 private:
 	int id;
 	int x;
@@ -44,7 +52,23 @@ int main()
 		{1,11,6}
 	};
 
-	std::sort(vd.begin(), vd.end(), Dude::YLess{});
+	class ThresholdTestY
+	{
+	public:
+		ThresholdTestY(int thresh)
+			:
+			thresh(thresh)
+		{}
+		bool operator()(const Dude& vd)
+		{
+			return vd.GetY() > thresh;
+		}
+	private:
+		int thresh;
+	};
+	//std::sort(vd.begin(), vd.end(), Dude::YLess{});
+	const auto new_end = std::remove_if(vd.begin(), vd.end(), ThresholdTestY{ 50 });
+	vd.erase(new_end, vd.end());
 
 	for (const auto& d : vd)
 	{

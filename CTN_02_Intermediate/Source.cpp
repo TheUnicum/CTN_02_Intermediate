@@ -3,16 +3,53 @@
 #include <algorithm>
 #include <functional>
 
-int main()
-{	//	https://en.cppreference.com/w/cpp/algorithm/sort
-	//	https://en.cppreference.com/w/cpp/header/functional
-	std::vector<int> vi = { 3,0,1,9,2,4,6,1,8,7,5 };
-
-	std::sort(vi.begin(), vi.end(), std::greater<int>{});
-
-	for (int n : vi)
+class Dude
+{
+public:
+	Dude(int id, int x, int y)
+	:
+		id(id),
+		x(x),
+		y(y)
+	{}
+	void Print(std::ostream& out) const
 	{
-		std::cout << n;
+		out << "id:" << id << "|x:" << x << "|y:" << y;
+	}
+	bool operator<(const Dude& rhs) const
+	{
+		return id < rhs.id;
+	}
+	class YLess
+	{
+	public:
+		bool operator()(const Dude& lhs, const Dude& rhs) const
+		{
+			return lhs.y < rhs.y;
+		}
+	};
+private:
+	int id;
+	int x;
+	int y;
+};
+
+int main()
+{
+	std::vector<Dude> vd = {
+		{3,12,7},
+		{2,3,22},
+		{4,9,18},
+		{0,13,62},
+		{1,11,6}
+	};
+
+	std::sort(vd.begin(), vd.end(), Dude::YLess{});
+
+	for (const auto& d : vd)
+	{
+		d.Print(std::cout);
+		std::cout << std::endl;
 	}
 
 	std::cin.get();

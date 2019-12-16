@@ -100,8 +100,9 @@ int main()
 	// (can be done in single statement!)
 	std::cout << "<< Number Words to Digits >>" << std::endl;
 	{
+		auto it = std::istringstream(nambies);
 		std::transform(
-			std::istream_iterator<std::string>(std::istringstream(nambies)),
+			std::istream_iterator<std::string>(it),
 			std::istream_iterator<std::string>(),
 			std::ostream_iterator<int>(std::cout),
 			[&numbers](const std::string& word)
@@ -141,22 +142,23 @@ int main()
 	// and output of course
 	std::cout << "<< Product >>" << std::endl;
 	{
-		//std::vector<int> nums;
-		//std::transform(
-		//	std::istream_iterator<std::string>(std::istringstream(nambies)),
-		//	std::istream_iterator<std::string>(),
-		//	std::back_inserter(nums),
-		//	[&numbers](const std::string& word)
-		//	{
-		//		return std::find_if(numbers.begin(), numbers.end(),
-		//			[&word](const Pube& p)
-		//			{
-		//				return p.str == word;
-		//			}
-		//		)->num;
-		//	}
-		//);
-		//std::cout << std::accumulate(nums.begin(), nums.end(), 1, std::multiplies<int>{}) << std::endl;
+		std::vector<int> nums;
+		auto it = std::istringstream(nambies);
+		std::transform(
+			std::istream_iterator<std::string>(it),
+			std::istream_iterator<std::string>(),
+			std::back_inserter(nums),
+			[&numbers](const std::string& word)
+			{
+				return std::find_if(numbers.begin(), numbers.end(),
+					[&word](const Pube& p)
+					{
+						return p.str == word;
+					}
+				)->num;
+			}
+		);
+		std::cout << std::accumulate(nums.begin(), nums.end(), 1, std::multiplies<int>{}) << std::endl;
 	}
 	std::cout << "============================================" << std::endl << std::endl;
 

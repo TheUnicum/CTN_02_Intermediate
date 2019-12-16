@@ -118,6 +118,33 @@ public:
 	}
 };
 
+class MemeStoner : public MemeFighter
+{
+public:
+	MemeStoner(const std::string& name)
+		:
+		MemeFighter(name, 80, 4, 10)
+	{}
+	void SpecialMove()
+	{
+		if (IsAlive())
+		{
+			if (Roll() > 3)
+			{
+				std::cout << GetName() << " smoke the dank stinky icky, becoming " << "Super " << GetName() << std::endl;
+				name = "Super " + name;
+				speed += 3;
+				power = (power * 69) / 42;
+				hp += 10;
+			}
+			else
+			{
+				std::cout << GetName() << " spaces out." << std::endl;
+			}
+		}
+	}
+};
+
 void Engage(MemeFighter& f1, MemeFighter& f2)
 {
 	// pointers for sorting purposes

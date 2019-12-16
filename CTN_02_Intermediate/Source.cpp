@@ -84,15 +84,7 @@ public:
 	}
 	void Smash(Smasher& target)
 	{
-		if (target.IsDead())
-		{
-			std::cout << GetName() << " smashes " << target.GetName() << "'s dead body. Still dead.\n";
-		}
-		else
-		{
-			std::cout << GetName() << " smashes " << target.GetName() << ".\n";
-			target.TakeDamage(GetStr());
-		}
+		Smasher::Smash(target);
 		std::cout << GetName() << " recover 2 sp.\n";
 		sp += 2;
 	}

@@ -4,10 +4,6 @@
 class Smasher
 {
 public:
-	Smasher()
-		:
-		Smasher(69, 1, "McDefault")
-	{}
 	Smasher(int hp, int str, const std::string& name)
 		:
 		hp(hp),
@@ -62,6 +58,10 @@ private:
 class EliteSmasher : public Smasher
 {
 public:
+	EliteSmasher(int hp, int str, const std::string& name)
+		:
+		Smasher(hp, str, name)
+	{}
 	void SuperSmash(Smasher& target)
 	{
 		if (sp > 0)
@@ -89,7 +89,7 @@ private:
 int main()
 {
 	Smasher df(100, 30, "Dik Fuk");
-	EliteSmasher tb;
+	EliteSmasher tb(110, 33, "Cunt Destroyer");
 
 	df.Smash(tb);
 	tb.SuperSmash(df);

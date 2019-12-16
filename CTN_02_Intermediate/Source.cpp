@@ -126,3 +126,8 @@ int main()
 	std::cin.get();
 	return 0;
 }
+
+/*
+https://isocpp.org/wiki/faq/basics-of-inheritance#protected-data-not-evil
+https://softwareengineering.stackexchange.com/questions/260343/why-is-inheritance-generally-viewed-as-a-bad-thing-by-oop-proponents
+*/

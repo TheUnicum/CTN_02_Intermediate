@@ -49,9 +49,10 @@ public:
 		return hp <= 0;
 	}
 
-private:
+protected:
 	int hp;
 	int str;
+private:
 	std::string name;
 };
 
@@ -88,6 +89,20 @@ public:
 		std::cout << GetName() << " recover 2 sp.\n";
 		sp += 2;
 	}
+	void PepUp()
+	{
+		if (sp >= 2)
+		{
+			std::cout << GetName() << " used Pep Up and gains 30 hp and 10 str. His boner is so huge.\n";
+			hp += 30;
+			str += 10;
+			sp -= 2;
+		}
+		else
+		{
+			std::cout << GetName() << " tried to use Pep Up but lacks sp. Tremendously flaccid.\n";
+		}
+	}
 private:
 	int sp = 6;
 };
@@ -99,6 +114,7 @@ int main()
 
 	df.Smash(tb);
 
+	tb.PepUp();
 	tb.SuperSmash(df);
 	tb.SuperSmash(df);
 	tb.SuperSmash(df);

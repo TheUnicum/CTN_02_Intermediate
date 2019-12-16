@@ -85,6 +85,39 @@ private:
 	mutable Dice d;
 };
 
+class MemeFrog : public MemeFighter
+{
+public:
+	MemeFrog(const std::string& name)
+		:
+		MemeFighter(name, 69, 7, 14)
+	{}
+	void SpecialMove(MemeFighter& other) const
+	{
+		if (IsAlive() && other.IsAlive())
+		{
+			if (Roll() > 4)
+			{
+				std::cout << GetName() << " attacks " << other.GetName() << " with a rainbow beam!" << std::endl;
+				ApplyDamageTo(other, Roll(3) + 20);
+			}
+			else
+			{
+				std::cout << GetName() << " falls off his unicycle." << std::endl;
+			}
+		}
+	}
+	void Tick()
+	{
+		if (IsAlive())
+		{
+			std::cout << GetName() << " is hurt by the bad AIDS!" << std::endl;
+			ApplyDamageTo(*this, Roll());
+			MemeFighter::Tick();
+		}
+	}
+};
+
 void Engage(MemeFighter& f1, MemeFighter& f2)
 {
 	// pointers for sorting purposes

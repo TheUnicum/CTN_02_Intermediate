@@ -20,6 +20,71 @@ private:
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 };
 
+class MemeFighter
+{
+public:
+	const std::string& GetName() const
+	{
+		return name;
+	}
+	bool IsAlive() const
+	{
+		return hp > 0;
+	}
+	int GetInitiative() const
+	{
+		return speed + Roll(2);
+	}
+	void Punch(MemeFighter& other) const
+	{
+		if (IsAlive() & other.IsAlive())
+		{
+			std::cout << name << " punches " << other.GetName()
+				<< "!" << std::endl;
+			ApplyDamageTo(other, power * Roll(2));
+		}
+	}
+	void Tick()
+	{
+		if (IsAlive())
+		{
+			const int recorery = Roll();
+			std::cout << name << " recovers " << recorery << " HP." << std::endl;
+			hp += recorery;
+		}
+	}
+protected:
+	MemeFighter(const std::string& name, int hp, int speed, int power)
+		:
+		name(name),
+		hp(hp),
+		speed(speed),
+		power(power)
+	{
+		std::cout << name << " enters the ring!" << std::endl;
+	}
+	void ApplyDamageTo(MemeFighter& target, int damage) const
+	{
+		target.hp -= damage;
+		std::cout << target.GetName() << " takes " << damage << " damage." << std::endl;
+		if (!target.IsAlive())
+		{
+			std::cout << "As the life leaves " << target.name << "'s body, so does the poop." << std::endl;
+		}
+	}
+	int Roll(int nDice = 1) const
+	{
+		return d.Roll(nDice);
+	}
+protected:
+	int hp;
+	int speed;
+	int power;
+	std::string name;
+private:
+	mutable Dice d;
+};
+
 void Engage(MemeFighter& f1, MemeFighter& f2)
 {
 	// pointers for sorting purposes

@@ -41,7 +41,7 @@ public:
 		{
 			std::cout << name << " punches " << other.GetName()
 				<< "!" << std::endl;
-			ApplyDamageTo(other, power * Roll(2));
+			ApplyDamageTo(other, power + Roll(2));
 		}
 	}
 	void Tick()

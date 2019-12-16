@@ -53,10 +53,7 @@ public:
 			hp += recorery;
 		}
 	}
-	virtual void SpecialMove(MemeFighter&)
-	{
-		std::cout << "You will never get this!" << std::endl;
-	}
+	virtual void SpecialMove(MemeFighter&) = 0;
 protected:
 	MemeFighter(const std::string& name, int hp, int speed, int power)
 		:
@@ -102,7 +99,7 @@ public:
 		{
 			if (Roll() > 4)
 			{
-				std::cout << GetName() << " attacks " << other.GetName() << " with a rainbow beam!" << std::endl;
+				std::cout << GetName() << " attacks " << other.GetName() << " with a rainbow beam!" << //std::endl;
 				ApplyDamageTo(other, Roll(3) + 20);
 			}
 			else

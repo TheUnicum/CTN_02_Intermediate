@@ -23,38 +23,35 @@ public:
 	}
 };
 
-void f(const Pube p)
+class PubeGrabber
 {
-	std::cout << "f(): ";
-	p.mint();
-}
-
-void g(const Pube& p)
-{
-	std::cout << "g(): ";
-	p.mint();
-}
-
-void h(const Pube* pp)
-{
-	std::cout << "h(): ";
-	pp->mint();
-}
+public:
+	void Give(Pube* p)
+	{
+		delete pPube;
+		pPube = p;
+	}
+	Pube* Take()
+	{
+		auto temp = pPube;
+		pPube = nullptr;
+		return temp;
+	}
+	~PubeGrabber()
+	{
+		delete pPube;
+	}
+private:
+	Pube* pPube = nullptr;
+};
 
 int main()
 {
 	{
-		auto p = std::make_unique<Pube>();
-		f(*p);
-		g(*p);
-		h(p.get());
-		p->mint();
-	}
-
-	std::cout << "------\n";
-	{
-		auto p = std::make_unique<Pube[]>(3);
-		p[2].mint();
+		PubeGrabber pg;
+		auto p = new Pube;
+		pg.Give(p);
+		// delete p; // problem with raw pointer 
 	}
 	std::cin.get();
 	return 0;

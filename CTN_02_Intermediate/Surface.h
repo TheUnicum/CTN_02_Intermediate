@@ -13,6 +13,7 @@ public:
 	Surface(Surface&&) noexcept;
 	~Surface();
 	Surface& operator=(const Surface&);
+	Surface& operator=(Surface&&) noexcept;
 	void PutPixel(int x, int y, Color c);
 	Color GetPixel(int x, int y) const;
 	int GetWidth() const;

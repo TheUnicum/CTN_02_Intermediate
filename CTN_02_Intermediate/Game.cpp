@@ -30,7 +30,8 @@ Game::Game( MainWindow& wnd )
 	{
 		surfaces.emplace_back("Images\\link90x90.bmp");
 	}
-}
+	surfaces[3] = std::move(surfaces[12]);
+}//https://foonathan.net/2019/02/special-member-functions/
 
 void Game::Go()
 {

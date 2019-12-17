@@ -110,16 +110,35 @@ Surface& Surface::operator=(const Surface& rhs)
 {
 	OutputDebugString(L"Surface copy ass called.\n");
 
-	width = rhs.width;
-	height = rhs.height;
-
-	delete[] pPixels;
-	pPixels = new Color[width * height];
-
-	const int nPixels = width * height;
-	for (int i = 0; i < nPixels; i++)
+	if (&rhs != this)
 	{
-		pPixels[i] = rhs.pPixels[i];
+		width = rhs.width;
+		height = rhs.height;
+
+		delete[] pPixels;
+		pPixels = new Color[width * height];
+
+		const int nPixels = width * height;
+		for (int i = 0; i < nPixels; i++)
+		{
+			pPixels[i] = rhs.pPixels[i];
+		}
+	}
+	return *this;
+}
+
+Surface& Surface::operator=(Surface&& rhs) noexcept
+{
+	OutputDebugString(L"Surface move ass called.\n");
+
+	if (&rhs != this)
+	{
+		width = rhs.width;
+		height = rhs.height;
+
+		delete[] pPixels;
+		pPixels = rhs.pPixels;
+		rhs.pPixels = nullptr;
 	}
 	return *this;
 }

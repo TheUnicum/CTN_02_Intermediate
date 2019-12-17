@@ -26,8 +26,10 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd )
 {
-	Vei2 v;
-	auto v2 = v.GetNormalized();
+	for (int i = 0; i < 32; i++)
+	{
+		surfaces.emplace_back("Images\\link90x90.bmp");
+	}
 }
 
 void Game::Go()

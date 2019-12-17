@@ -5,6 +5,8 @@
 
 Surface::Surface(const std::string& filename)
 {
+	OutputDebugString(L"Surface loaded from file.\n");
+
 	std::ifstream file(filename, std::ios::binary);
 	assert(file);
 
@@ -76,6 +78,8 @@ Surface::Surface(const Surface& rhs)
 	:
 	Surface(rhs.width, rhs.height)
 {
+	OutputDebugString(L"Surface copy ctor called.\n");
+
 	const int nPixels = width * height;
 	for (int i = 0; i < nPixels; i++)
 	{
@@ -85,12 +89,16 @@ Surface::Surface(const Surface& rhs)
 
 Surface::~Surface()
 {
+	OutputDebugString(L"Surface dtor called.\n");
+
 	delete[] pPixels;
 	pPixels = nullptr;
 }
 
 Surface& Surface::operator=(const Surface& rhs)
 {
+	OutputDebugString(L"Surface copy ass called.\n");
+
 	width = rhs.width;
 	height = rhs.height;
 

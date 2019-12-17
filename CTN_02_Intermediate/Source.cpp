@@ -38,14 +38,23 @@ private:
 	std::unique_ptr<Pube> pPube;
 };
 
+std::unique_ptr<Pube> MakePube()
+{
+	return std::make_unique<Pube>();
+}
+
 int main()
 {
 	{
 		PubeGrabber pg;
-		auto p = std::make_unique<Pube>();
-		pg.Give(std::move(p)); // transfer ownership
+		pg.Give(MakePube()); // transfer ownership
 		pg.Take();
-		// delete p; // problem with raw pointer 
+	}
+	{
+		PubeGrabber pg;
+		PubeGrabber pg2 = pg;
+		pg.Give(MakePube()); // transfer ownership
+		pg.Take();
 	}
 	std::cin.get();
 	return 0;

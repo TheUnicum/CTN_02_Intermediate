@@ -96,6 +96,8 @@ Surface::Surface(Surface&& donor) noexcept
 	OutputDebugString(L"Surface move ctor called.\n");
 
 	donor.pPixels = nullptr;
+	donor.width = 0;
+	donor.height = 0;
 }
 
 Surface::~Surface()
@@ -139,6 +141,8 @@ Surface& Surface::operator=(Surface&& rhs) noexcept
 		delete[] pPixels;
 		pPixels = rhs.pPixels;
 		rhs.pPixels = nullptr;
+		rhs.width = 0;
+		rhs.height = 0;
 	}
 	return *this;
 }

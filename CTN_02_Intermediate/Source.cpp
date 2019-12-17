@@ -26,31 +26,25 @@ public:
 class PubeGrabber
 {
 public:
-	void Give(Pube* p)
+	void Give(std::unique_ptr<Pube> p)
 	{
-		delete pPube;
-		pPube = p;
+		pPube = std::move(p);
 	}
-	Pube* Take()
+	std::unique_ptr<Pube> Take()
 	{
-		auto temp = pPube;
-		pPube = nullptr;
-		return temp;
-	}
-	~PubeGrabber()
-	{
-		delete pPube;
+		return std::move(pPube);
 	}
 private:
-	Pube* pPube = nullptr;
+	std::unique_ptr<Pube> pPube;
 };
 
 int main()
 {
 	{
 		PubeGrabber pg;
-		auto p = new Pube;
-		pg.Give(p);
+		auto p = std::make_unique<Pube>();
+		pg.Give(std::move(p)); // transfer ownership
+		pg.Take();
 		// delete p; // problem with raw pointer 
 	}
 	std::cin.get();

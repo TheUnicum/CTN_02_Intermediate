@@ -28,7 +28,8 @@ void nomnomnom(std::string&& donor)
 int main()
 {
 	std::string s = "This is just a dumb string pay it no heed.";
-	nomnomnom(s);
+	//nomnomnom(static_cast<std::string&&>(s));
+	nomnomnom(std::move(s));
 	std::cout << "after noming: " << s << std::endl;
 
 	nomnomnom(std::string("here is adumb string, it is going to die soon"));

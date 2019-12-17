@@ -2,27 +2,13 @@
 #include <string>
 #include <vector>
 
-void nomnomnom(const std::string& str)
+void nomnomnom(std::string str)
 {
-	std::cout << "lval noming!\n";
-
-	auto copy = str;
-	for (auto& c : copy)
+	for (auto& c : str)
 	{
 		c++;
 	}
-	std::cout << "Nom nom nom: " << copy << std::endl;
-}
-
-void nomnomnom(std::string&& donor)
-{
-	std::cout << "rval noming!\n";
-
-	for (auto& c : donor)
-	{
-		c++;
-	}
-	std::cout << "Nom nom nom: " << donor << std::endl;
+	std::cout << "Nom nom nom: " << str << std::endl;
 }
 
 class Dog

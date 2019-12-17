@@ -2,39 +2,22 @@
 #include <string>
 #include <vector>
 
-class A
+void nomnomnom(const std::string& str)
 {
-public:
-	int& Get()
+	auto copy = str;
+	for (auto& c : copy)
 	{
-		return x;
+		c++;
 	}
-private:
-	int x;
-};
-
-int f()
-{
-	return 69;
+	std::cout << "Nom nom nom: " << copy << std::endl;
 }
 
 int main()
 {
-	// rvalue can only appear on right side of assigment (=)
-	// literal int
-	420 = 69;
-	// temporary return value from function
-	f() = 420;
+	std::string s = "This is just a dumb string pay it no heed.";
+	nomnomnom(s);
+	std::cout << "after noming: " << s << std::endl;
 
-	// lvalue can be
-	int x;
-	x = 69;
-
-	A obj;
-	obj.Get() = 69;
-
-	int r[5];
-	r[3] = 420;
-
+	std::cin.get();
 	return 0;
 }

@@ -1,46 +1,31 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
-void nomnomnom(std::string str)
-{
-	for (auto& c : str)
-	{
-		c++;
-	}
-	std::cout << "Nom nom nom: " << str << std::endl;
-}
-
-class Dog
-{
-public:
-	Dog() = default;
-	Dog(Dog&&)
-	{
-		std::cout << "move ctoring an Dog!\n";
-	}
-};
-
-class Cat
-{
-private:
-	Dog d1;
-	Dog d2;
-};
+#include <iterator>
+#include <algorithm>
 
 int main()
 {
+	std::vector<std::string> v = { "nards", "mcchicken sandwich", "tourettes", "that's probably not how you spell turrets?", "applejizz", "mainac" };
+
+	// filter to keep only long strings
+	std::vector<std::string> filtered;
+	std::copy_if(
+		std::make_move_iterator(v.begin()),
+		std::make_move_iterator(v.end()),
+		std::back_inserter(filtered),
+		[](const std::string& s)
 	{
-		Cat c1;
-		Cat c2 = std::move(c1);
-	}
-
-	std::string s = "This is just a dumb string pay it no heed.";
-	//nomnomnom(static_cast<std::string&&>(s));
-	nomnomnom(std::move(s));
-	std::cout << "after noming: " << s << std::endl;
-
-	nomnomnom(std::string("here is adumb string, it is going to die soon"));
+		return s.length() > 10;
+	});
+	// output result of filtering
+	std::copy(filtered.begin(), filtered.end(),
+		std::ostream_iterator<std::string>(std::cout, "\n")
+	);
+	// output what is left in original vector
+	std::copy(v.begin(), v.end(),
+		std::ostream_iterator<std::string>(std::cout, "\n")
+	);
 
 	std::cin.get();
 	return 0;

@@ -10,6 +10,7 @@ public:
 	Surface(const std::string& filename);
 	Surface(int width, int height);
 	Surface(const Surface&);
+	Surface(Surface&&) noexcept;
 	~Surface();
 	Surface& operator=(const Surface&);
 	void PutPixel(int x, int y, Color c);

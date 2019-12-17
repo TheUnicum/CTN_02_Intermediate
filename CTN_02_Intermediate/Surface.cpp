@@ -87,6 +87,17 @@ Surface::Surface(const Surface& rhs)
 	}
 }
 
+Surface::Surface(Surface&& donor) noexcept
+	:
+	width(donor.width),
+	height(donor.height),
+	pPixels(donor.pPixels)
+{
+	OutputDebugString(L"Surface move ctor called.\n");
+
+	donor.pPixels = nullptr;
+}
+
 Surface::~Surface()
 {
 	OutputDebugString(L"Surface dtor called.\n");

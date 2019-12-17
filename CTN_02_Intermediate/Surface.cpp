@@ -43,7 +43,7 @@ Surface::Surface(const std::string& filename)
 		dy = -1;
 	}
 
-	pPixels = new Color[width * height];
+	pPixels = std::make_unique<Color[]>(width * height);
 
 	file.seekg(bmFileHeader.bfOffBits);
 	// padding is for the case of 24 bits depth only
@@ -87,27 +87,6 @@ Surface::Surface(const Surface& rhs)
 	}
 }
 
-Surface::Surface(Surface&& donor) noexcept
-	:
-	width(donor.width),
-	height(donor.height),
-	pPixels(donor.pPixels)
-{
-	OutputDebugString(L"Surface move ctor called.\n");
-
-	donor.pPixels = nullptr;
-	donor.width = 0;
-	donor.height = 0;
-}
-
-Surface::~Surface()
-{
-	OutputDebugString(L"Surface dtor called.\n");
-
-	delete[] pPixels;
-	pPixels = nullptr;
-}
-
 Surface& Surface::operator=(const Surface& rhs)
 {
 	OutputDebugString(L"Surface copy ass called.\n");
@@ -117,32 +96,13 @@ Surface& Surface::operator=(const Surface& rhs)
 		width = rhs.width;
 		height = rhs.height;
 
-		delete[] pPixels;
-		pPixels = new Color[width * height];
+		pPixels = std::make_unique<Color[]>(width * height);
 
 		const int nPixels = width * height;
 		for (int i = 0; i < nPixels; i++)
 		{
 			pPixels[i] = rhs.pPixels[i];
 		}
-	}
-	return *this;
-}
-
-Surface& Surface::operator=(Surface&& rhs) noexcept
-{
-	OutputDebugString(L"Surface move ass called.\n");
-
-	if (&rhs != this)
-	{
-		width = rhs.width;
-		height = rhs.height;
-
-		delete[] pPixels;
-		pPixels = rhs.pPixels;
-		rhs.pPixels = nullptr;
-		rhs.width = 0;
-		rhs.height = 0;
 	}
 	return *this;
 }

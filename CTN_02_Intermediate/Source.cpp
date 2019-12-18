@@ -4,53 +4,29 @@
 #include <conio.h>
 #include <memory>
 
-//struct CaseFunction
-//{
-//	virtual void operator()() const = 0;
-//};
-//
-//struct SixtyNine : public CaseFunction
-//{
-//	void operator()() const override
-//	{
-//		std::cout << "the sex number";
-//	}
-//};
-//
-//struct FourTwenty : public CaseFunction
-//{
-//	void operator()() const override
-//	{
-//		std::cout << "the weed number";
-//	}
-//};
 
-int Double(int x)
+void SixtyNine()
 {
-	return x * 2;
+	std::cout << "the sex number";
 }
 
-int Triple(int x)
+void FourTwenty()
 {
-	return x * 3;
+	std::cout << "the weed number";
 }
+
 
 int main()
 {
-	//std::unordered_map<std::string, std::unique_ptr<CaseFunction>> sw;
+	std::unordered_map<std::string, void(*)()> sw;
 
-	//sw["sixty-nine"] = std::make_unique<SixtyNine>();
-	//sw["four-twenty"] = std::make_unique<FourTwenty>();
+	sw["sixty-nine"] = []()
+	{
+		std::cout << "the sex number";
+	};
+	sw["four-twenty"] = FourTwenty;
 
-	//(*sw["sixty-nine"])();
-
-	int(*pFunc)(int);
-
-	pFunc = Double;
-	std::cout << pFunc(2) << std::endl;
-
-	pFunc = Triple;
-	std::cout << pFunc(2) << std::endl;
+	sw["sixty-nine"]();
 
 	while (!_kbhit());
 	return 0;

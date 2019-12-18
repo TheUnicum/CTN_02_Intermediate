@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <conio.h>
 #include <memory>
+#include <functional>
 
 
 void SixtyNine()
@@ -18,7 +19,7 @@ void FourTwenty()
 
 int main()
 {
-	std::unordered_map<std::string, void(*)()> sw;
+	std::unordered_map<std::string, std::function<void()>> sw;
 
 	sw["sixty-nine"] = []()
 	{

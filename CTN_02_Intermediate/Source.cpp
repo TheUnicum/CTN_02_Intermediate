@@ -1,47 +1,42 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
-#include <map>
-#include "Vec2.h"
+#include <unordered_map>
 
-struct Vei2Comparer
-{
-	bool operator()(const Vei2& lhs, const Vei2& rhs) const
-	{
-		return (lhs.x == rhs.x) ? lhs.y < rhs.y : lhs.x < rhs.x;
-	}
-};
 
 int main()
 {
-	// create multimap with custom comparator
-	std::multimap<Vei2, std::string, Vei2Comparer> mm;
-
-	// initialize the map
-	mm.emplace(Vei2{ 69, 420 }, "Majick numbers");
-	mm.emplace(Vei2{ 56, -12 }, "some bullshit");
-	mm.emplace(Vei2{ -1234, -12 }, "more bullshit");
-	mm.emplace(Vei2{ 1336, 88 }, "multi bullshit 1");
-	mm.emplace(Vei2{ 1336, 88 }, "multi bullshit 2");
-	mm.emplace(Vei2{ 1336, 88 }, "multi bullshit 3");
-
-	// print out range of values corresponding to Vei2 key
-	const auto range = mm.equal_range({ 1336, 88 });
-	for (auto i = range.first; i != range.second; i++)
+	// crate umap and initialize with initializer_list of std::pair
+	std::unordered_map<std::string, int> map(
 	{
-		std::cout << i->second << std::endl;
+		{ "one",1 },
+		{ "seven",7 },
+		{ "five",5 },
+		{ "nine",9 },
+		{ "two",2 },
+		{ "eight",8 },
+		{ "three",3 },
+		{ "six",6 },
+		{ "four",4 },
+		{ "zero",0 }
+	});
+
+	// get user input
+	std::string input;
+	std::cin >> input;
+	// lookup
+	auto i = map.find(input);
+	// print value if key exists, or error message otherwise
+	if (i != map.end())
+	{
+		std::cout << i->second;
+	}
+	else
+	{
+		std::cout << "That ain't a valid key bro.";
 	}
 
 	while (!_kbhit());
 	return 0;
 }
 
-/*
-https://it.cppreference.com/w/cpp/container
-
-https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
-
-https://it.cppreference.com/w/cpp/container/set
-https://it.cppreference.com/w/cpp/container/map
-https://it.cppreference.com/w/cpp/container/multimap
-*/

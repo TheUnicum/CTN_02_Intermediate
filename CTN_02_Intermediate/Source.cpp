@@ -3,6 +3,8 @@
 #include <conio.h>
 #include <map>
 #include <algorithm>
+#include <vector>
+#include <set>
 
 int main()
 {
@@ -10,42 +12,29 @@ int main()
 	std::string command;
 	std::map<std::string, std::string> map;
 
-	// initialize the map
-	map.insert(std::pair<std::string, std::string>{ "crabdance", "crab people, crab people!" });
-	map.emplace("asdfasdf", "asdfasdf asdfasdf asdf adsf");
-	map.insert({ "cashme", "owsigh, hawbadah?" });
-	map.insert({ "so", "you're saying that babies are delicious, and their flesh should be consumed daily" });
+	//// initialize the map
+	//map.insert(std::pair<std::string, std::string>{ "crabdance", "crab people, crab people!" });
+	//map.emplace("asdfasdf", "asdfasdf asdfasdf asdf adsf");
+	//map.insert({ "cashme", "owsigh, hawbadah?" });
+	//map.insert({ "so", "you're saying that babies are delicious, and their flesh should be consumed daily" });
+	//
+	//
+	//std::cin >> command;
+	//std::cout << map[command] << std::endl;
 
-	//std::cout << map.find("so")->second << std::endl;
+	std::vector<int> input = { 1,3,1,1,3,5,0,3,9,6,4,4,7,6,4,5,6,1,0 };
+	std::set<int> seen;
 
-	//--------------
-	// remove
-	//--------------
-	// remove doesn't work with map contaner
-
-	//std::remove_if(map.begin(), map.end(), [](auto& el) {return el.firse.size() > 2; });
-
-	for (auto i = map.begin(); i != map.end();)
+	for (int in : input)
 	{
-		if (i->first.size() > 2)
+		auto result = seen.insert(in);
+		if (result.second)
 		{
-			i = map.erase(i);
-		}
-		else
-		{
-			i++;
+			std::cout << in << " ";
 		}
 	}
 
-
-	for (auto& el : map)
-	{
-		std::cout << el.first << " : " << el.second << std::endl;
-	}
-
-	std::cout << "----\n";
-	std::cin >> command;
-	std::cout << map[command] << std::endl;
+	std::cout << std::endl;
 
 	while (!_kbhit())
 	return 0;

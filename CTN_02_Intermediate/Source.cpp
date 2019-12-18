@@ -42,6 +42,8 @@ int main()
 	std::cout << ToBin(d << 24, 32) << " <- d << 24" << std::endl;
 	packed = packed | d << 24;
 	std::cout << ToBin(packed, 32) << " <- p: dcba" << std::endl;
+	// unpack
+	std::cout << ((packed & 0b111111110000000000000000) >> 16) << " <- c unpacked!" << std::endl;
 
 	std::cin.get();
 	return 0;

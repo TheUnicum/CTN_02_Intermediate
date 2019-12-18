@@ -58,7 +58,43 @@ std::string OptionToString(int opt)
 
 int main()
 {
-	std::cout << OptionToString(Options::Kappa | Options::Porn | Options::Ebola) << std::endl;
+	const unsigned char a = 0b11000011;
+	const unsigned char a_complement = ~a;
+
+	std::cout << ToBin(a, 8) << std::endl;
+	std::cout << ToBin(a_complement, 8) << std::endl;
+
+	std::cout << "------Erase one option-----\n";
+	int options = Options::Kappa | Options::Porn | Options::Ebola;
+	std::cout << ToBin(options, 32) << std::endl;
+	std::cout << ToBin(Options::Porn, 32) << std::endl;
+	std::cout << ToBin(~Options::Porn, 32) << std::endl;
+	options &= ~Options::Porn;
+	std::cout << ToBin(options, 32) << std::endl;
+
+	std::cout << OptionToString(options) << std::endl;
+
+	//std::cout << OptionToString(Options::Kappa | Options::Porn | Options::Ebola) << std::endl;
+
+
+	std::cout << "\n------Exclusive OR-----\n";
+	int a2 = 0b10101010;
+	int b2 = 0b11110000;
+
+	std::cout << ToBin(a2, 8) << std::endl;
+	std::cout << ToBin(b2, 8) << std::endl;
+	std::cout << ToBin(a2 ^ b2, 8) << std::endl;
+
+
+
+	std::cout << "\n------Toggle with Xor-----\n";
+	options = Options::Kappa | Options::Porn | Options::Ebola;
+
+	options ^= Options::Kappa;
+	options ^= Options::Memes;
+
+	std::cout << OptionToString(options) << std::endl;
+
 
 	std::cin.get();
 	return 0;

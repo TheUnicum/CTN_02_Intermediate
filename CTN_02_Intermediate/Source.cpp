@@ -22,25 +22,26 @@ struct Vei2Equals
 	}
 };
 
-
-struct HashVec2
+namespace std
 {
-	//template<typename T>
-	size_t operator()(const Vei2& vec) const
+	template <> struct hash<Vei2>
 	{
-		std::hash<int> hasher;
-		auto hashx = hasher(vec.x);
-		auto hashy = hasher(vec.y);
+		size_t operator()(const Vei2& vec) const
+		{
+			std::hash<int> hasher;
+			auto hashx = hasher(vec.x);
+			auto hashy = hasher(vec.y);
 
-		hashx ^= hashy + 0x9e3779b9 + (hashx << 6) + (hashx >> 2);
-		return hashx;
-	}
-};
+			hashx ^= hashy + 0x9e3779b9 + (hashx << 6) + (hashx >> 2);
+			return hashx;
+		}
+	};
+}
 
 int main()
 {
 	// crate umap and initialize with initializer_list of std::pair
-	std::unordered_map<Vei2,std::string,HashVec2,Vei2Equals> map(
+	std::unordered_map<Vei2,std::string> map(
 		{
 			{ {23, 40}, "twenty three" },
 			{ {99, 7000}, "ninty nine" },

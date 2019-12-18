@@ -57,3 +57,8 @@ int Vei2::GetLengthSq() const
 {
 	return x * x + y * y;
 }
+
+bool Vei2::operator==(const Vei2& rhs) const
+{
+	return x == rhs.x && y == rhs.y;
+}

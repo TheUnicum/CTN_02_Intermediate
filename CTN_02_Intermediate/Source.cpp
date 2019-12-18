@@ -1,7 +1,30 @@
 #include <iostream>
+#include <string>
+
+class Annuncer
+{
+public:
+	Annuncer(const std::string& name)
+		:
+		name(name)
+	{
+		std::cout << "Constructing " << name << std::endl;
+	}
+	~Annuncer()
+	{
+		std::cout << "Destroying " << name << std::endl;
+	}
+private:
+	std::string name;
+};
 
 int sum(int a, int b)
 {
+	Annuncer j("j");
+	Annuncer k("k");
+
+	auto p = std::make_unique<Annuncer>("fuck");
+
 	if (a == 69)
 	{
 		throw std::runtime_error("<a> is the sex number!");
@@ -11,6 +34,8 @@ int sum(int a, int b)
 	{
 		throw std::logic_error("<b> is the weed number!");
 	}
+
+	Annuncer l("l");
 
 	return a + b;
 }
@@ -32,7 +57,7 @@ int main()
 {
 	try
 	{
-		std::cout << f(1,69, 7) << std::endl;
+		std::cout << f(69,420, 7) << std::endl;
 	}
 	catch (const std::runtime_error& e)
 	{

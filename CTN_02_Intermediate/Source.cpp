@@ -2,6 +2,7 @@
 #include <string>
 #include <conio.h>
 #include <map>
+#include <algorithm>
 
 int main()
 {
@@ -15,13 +16,38 @@ int main()
 	map.insert({ "cashme", "owsigh, hawbadah?" });
 	map.insert({ "so", "you're saying that babies are delicious, and their flesh should be consumed daily" });
 
-	map.count("so");
-	std::cout << map.find("so")->second << std::endl;
+	//std::cout << map.find("so")->second << std::endl;
 
+	//--------------
+	// remove
+	//--------------
+	// remove doesn't work with map contaner
+
+	//std::remove_if(map.begin(), map.end(), [](auto& el) {return el.firse.size() > 2; });
+
+	for (auto i = map.begin(); i != map.end();)
+	{
+		if (i->first.size() > 2)
+		{
+			i = map.erase(i);
+		}
+		else
+		{
+			i++;
+		}
+	}
+
+
+	for (auto& el : map)
+	{
+		std::cout << el.first << " : " << el.second << std::endl;
+	}
+
+	std::cout << "----\n";
 	std::cin >> command;
 	std::cout << map[command] << std::endl;
 
-	while (!_kbhit());
+	while (!_kbhit())
 	return 0;
 }
 

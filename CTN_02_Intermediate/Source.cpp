@@ -12,7 +12,16 @@ int sum(int a, int b)
 
 int f(int x, int y, int z)
 {
-	return sum(x, y) * sum(y, z);
+	try
+	{
+		return sum(x, y) * sum(y, z);
+	}
+	catch (const std::runtime_error& e)
+	{
+		std::cout << "Caught in f: " << e.what() << std::endl;
+		//return 69420;
+		throw e;
+	}
 }
 
 int main()

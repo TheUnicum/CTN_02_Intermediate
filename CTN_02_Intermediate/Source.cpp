@@ -16,9 +16,34 @@ std::string ToBin(unsigned int n, int min_digits = 0)
 
 int main()
 {
-	std::cout << ToBin(232) << std::endl;
-	std::cout << ToBin(0xE8) << std::endl;
-	std::cout << ToBin(0b11101000) << std::endl;
+	const int a = 0b10100101;
+	const int b = 0b11110000;
+	std::cout << ToBin(a) << " <- a" << std::endl;
+	std::cout << ToBin(b) << " <- b" << std::endl;
+	std::cout << ToBin(a & b) << " <- a & b" << std::endl;
+
+
+	std::cout << "----\n";
+	std::cout << "combine with or\n";
+	const int a1 = 0b00000101;
+	const int b1 = 0b10100000;
+	std::cout << ToBin(a1, 8) << " <- a" << std::endl;
+	std::cout << ToBin(b1) << " <- b" << std::endl;
+	std::cout << ToBin(a1 | b1) << " <- a | b" << std::endl;
+	
+	
+	std::cout << "----\n";
+	std::cout << "Shift bit left <<\n";
+	const int a2 = 0b00000101;
+	std::cout << ToBin(a2, 8) << " <- a" << std::endl;
+	std::cout << ToBin(a2 << 4, 8) << " <- a << 4" << std::endl;
+
+
+	std::cout << "----\n";
+	std::cout << "Shift bit right >>\n";
+	const int a3 = -1;
+	std::cout << ToBin(a3, 8) << " <- a" << std::endl;
+	std::cout << ToBin(a3 >> 4, 8) << " <- a >> 4" << std::endl;
 
 	std::cin.get();
 	return 0;

@@ -4,6 +4,14 @@
 #include <unordered_map>
 #include "Vec2.h"
 
+struct Pube
+{
+	std::string str;
+	Vei2 vec;
+	int n;
+	char m;
+};
+
 struct Vei2Comparer
 {
 	template<typename T>
@@ -41,15 +49,15 @@ namespace std
 int main()
 {
 	// crate umap and initialize with initializer_list of std::pair
-	std::unordered_map<Vei2,std::string> map(
+	std::unordered_map<Pube,std::string> map(
 		{
-			{ {23, 40}, "twenty three" },
-			{ {99, 7000}, "ninty nine" },
-			{ {1000000, 69}, "million" },
-			{ {1337, 420}, "elite" },
+			{{ "you", {23, 40}, 12, 92}, "you" },
+			{{ "me", {69, 40}, 420, 69}, "will" },
+			{{ "you", {23, 40}, 12, 91}, "never" },
+			{{ "me", {69, 69}, 420, 69}, "get this" },
 		});
 
-	std::cout << map[{99, 7000}];
+	std::cout << map[{ "you", { 23, 40 }, 12, 91}];
 
 	while (!_kbhit());
 	return 0;

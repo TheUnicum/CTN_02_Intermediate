@@ -2,46 +2,46 @@
 #include <string>
 #include <conio.h>
 #include <map>
-#include <algorithm>
-#include <vector>
-#include <set>
+#include "Vec2.h"
+
+struct Vei2Comparer
+{
+	bool operator()(const Vei2& lhs, const Vei2& rhs) const
+	{
+		return (lhs.x == rhs.x) ? lhs.y < rhs.y : lhs.x < rhs.x;
+	}
+};
 
 int main()
 {
-	std::string response;
-	std::string command;
-	std::map<std::string, std::string> map;
+	// create multimap with custom comparator
+	std::multimap<Vei2, std::string, Vei2Comparer> mm;
 
-	//// initialize the map
-	//map.insert(std::pair<std::string, std::string>{ "crabdance", "crab people, crab people!" });
-	//map.emplace("asdfasdf", "asdfasdf asdfasdf asdf adsf");
-	//map.insert({ "cashme", "owsigh, hawbadah?" });
-	//map.insert({ "so", "you're saying that babies are delicious, and their flesh should be consumed daily" });
-	//
-	//
-	//std::cin >> command;
-	//std::cout << map[command] << std::endl;
+	// initialize the map
+	mm.emplace(Vei2{ 69, 420 }, "Majick numbers");
+	mm.emplace(Vei2{ 56, -12 }, "some bullshit");
+	mm.emplace(Vei2{ -1234, -12 }, "more bullshit");
+	mm.emplace(Vei2{ 1336, 88 }, "multi bullshit 1");
+	mm.emplace(Vei2{ 1336, 88 }, "multi bullshit 2");
+	mm.emplace(Vei2{ 1336, 88 }, "multi bullshit 3");
 
-	std::vector<int> input = { 1,3,1,1,3,5,0,3,9,6,4,4,7,6,4,5,6,1,0 };
-	std::set<int> seen;
-
-	for (int in : input)
+	// print out range of values corresponding to Vei2 key
+	const auto range = mm.equal_range({ 1336, 88 });
+	for (auto i = range.first; i != range.second; i++)
 	{
-		auto result = seen.insert(in);
-		if (result.second)
-		{
-			std::cout << in << " ";
-		}
+		std::cout << i->second << std::endl;
 	}
 
-	std::cout << std::endl;
-
-	while (!_kbhit())
+	while (!_kbhit());
 	return 0;
 }
 
 /*
+https://it.cppreference.com/w/cpp/container
+
 https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
 
+https://it.cppreference.com/w/cpp/container/set
 https://it.cppreference.com/w/cpp/container/map
+https://it.cppreference.com/w/cpp/container/multimap
 */

@@ -13,6 +13,7 @@ public:
 	~Annuncer()
 	{
 		std::cout << "Destroying " << name << std::endl;
+		throw std::runtime_error("Oops");
 	}
 private:
 	std::string name;

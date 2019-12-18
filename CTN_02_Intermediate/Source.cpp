@@ -12,23 +12,12 @@ struct Pube
 	char m;
 };
 
-struct Vei2Comparer
+template<class T>
+void hash_combine(std::size_t& seed, const T& v)
 {
-	template<typename T>
-	bool operator()(const T& lhs, const T& rhs) const
-	{
-		return (lhs.x == rhs.x) ? lhs.y < rhs.y : lhs.x < rhs.x;
-	}
-};
-
-struct Vei2Equals
-{
-	//template<typename T>
-	bool operator()(const Vei2& lhs, const Vei2& rhs) const
-	{
-		return lhs.x == rhs.x && lhs.y == rhs.y;
-	}
-};
+	std::hash<T> hasher;
+	seed ^= hasher(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}
 
 namespace std
 {
@@ -42,6 +31,29 @@ namespace std
 
 			hashx ^= hashy + 0x9e3779b9 + (hashx << 6) + (hashx >> 2);
 			return hashx;
+		}
+	};
+
+	template <> struct hash<Pube>
+	{
+		size_t operator()(const Pube& p) const
+		{
+			auto seed = std::hash<std::string>{}(p.str);
+			hash_combine(seed, p.vec);
+			hash_combine(seed, p.n);
+			hash_combine(seed, p.m);
+			return seed;
+		}
+	};
+
+	template <> struct equal_to<Pube>
+	{
+		bool operator()(const Pube& lhs, const Pube& rhs) const
+		{
+			return lhs.str == rhs.str &&
+				lhs.vec == rhs.vec &&
+				lhs.m == rhs.m &&
+				lhs.n == rhs.n;
 		}
 	};
 }

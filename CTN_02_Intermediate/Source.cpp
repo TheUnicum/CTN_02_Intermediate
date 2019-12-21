@@ -44,6 +44,8 @@ int main()
 
 	int(Foo::*pFooFunc)(int);
 
+
+	//1.
 	pFooFunc = &Foo::DoublePlus;
 
 	Foo f;
@@ -51,6 +53,13 @@ int main()
 
 	std::cout << (f.*pFooFunc)(4) << std::endl;
 	std::cout << (pf->*pFooFunc)(4) << std::endl;
+
+
+	//2.
+	std::function<int(Foo, int)>;
+
+	std::function<int(Foo, int)> func = &Foo::TriplePlus;
+	std::cout << func(f, 4) << std::endl;
 
 	while (!_kbhit());
 	return 0;

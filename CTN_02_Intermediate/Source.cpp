@@ -5,29 +5,46 @@
 #include <memory>
 #include <functional>
 
-
-void SixtyNine()
+class StringSwitch
 {
-	std::cout << "the sex number";
-}
-
-void FourTwenty()
-{
-	std::cout << "the weed number";
-}
+public:
+	std::function<void()>& Case(std::string str)	// set function of our case
+	{
+		return map[str];
+	}
+	std::function<void()>& Default()
+	{
+		return def;
+	}
+	void operator[](const std::string& str) const
+	{
+		auto i = map.find(str);	//map[str]();
+		if (i != map.end())
+		{
+			i->second();
+		}
+		else
+		{
+			def();
+		}
+	}
+private:
+	std::unordered_map<std::string, std::function<void()>> map;
+	std::function<void()> def = []() {};
+};
 
 
 int main()
 {
-	std::unordered_map<std::string, std::function<void()>> sw;
+	int x = 69;
 
-	sw["sixty-nine"] = []()
-	{
-		std::cout << "the sex number";
-	};
-	sw["four-twenty"] = FourTwenty;
+	StringSwitch sw;
+	sw.Case("foo") = [&]() {std::cout << "you did a foo" << x; };
+	sw.Case("bar") = []() {std::cout << "you did a bar"; };
+	sw.Default() = []() {std::cout << "idkwtf that is"; };
 
-	sw["sixty-nine"]();
+	sw["foo"];
+	sw["pubes"];
 
 	while (!_kbhit());
 	return 0;

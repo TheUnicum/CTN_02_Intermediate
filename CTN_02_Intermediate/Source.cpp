@@ -16,6 +16,11 @@ void FourTwenty()
 	std::cout << "the weed number";
 }
 
+void Thiong(int &x)
+{
+	x *= 2;
+}
+
 struct Foo
 {
 	int y = 3;
@@ -28,11 +33,6 @@ struct Foo
 		return x * 3 + y;
 	}
 };
-
-int Thiong(int x, int y)
-{
-	return x + y;
-}
 
 
 int main()
@@ -48,10 +48,16 @@ int main()
 
 	//sw["bs"]();
 
-	std::function<int(int)> f;
-	f = std::bind(Thiong, std::placeholders::_1, 69);
+	std::function<void()> f;
 
-	std::cout << f(1);
+	int x = 1;
+	f = std::bind(Thiong, std::ref(x));
+
+	f();
+	f();
+	f();
+
+	std::cout << x;
 
 	while (!_kbhit());
 	return 0;

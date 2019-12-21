@@ -5,64 +5,35 @@
 #include <memory>
 #include <functional>
 
-
-void SixtyNine()
+class Foo
 {
-	std::cout << "the sex number";
-}
-
-void FourTwenty()
-{
-	std::cout << "the weed number";
-}
-
-void Thiong(int &x)
-{
-	x *= 2;
-}
-
-struct Foo
-{
-	int y = 3;
-	int DoublePlus(int x)
+public:
+	Foo(int x)
+		: x(x)
+	{}
+	int GetX() const
 	{
-		return x * 2 + y;
+		return x;
 	}
-	int TriplePlus(int x)
+	static int DoStatic(int y)
 	{
-		return x * 3 + y;
+		return -y;
 	}
+private:
+	int x;
 };
 
 
 int main()
 {
-	//std::unordered_map<std::string, std::function<void()>> sw;
+	int(Foo::*pFooFunc)() const = &Foo::GetX;
 
-	//sw["sixty-nine"] = []()
-	//{
-	//	std::cout << "the sex number";
-	//};
-	//sw["four-twenty"] = FourTwenty;
-	//sw["bs"] = std::bind(Thiong, 69);
+	// member
+	Foo f(69);
+	std::cout << (f.*pFooFunc)() << std::endl;
 
-	//sw["bs"]();
-
-	std::function<int(Foo&, int)> f1 = &Foo::DoublePlus;
-	auto f2 = std::mem_fn(&Foo::TriplePlus);
-
-	Foo myfoo;
-
-	std::function<void()> f;
-
-	int x = 1;
-	f = [&myfoo]() { myfoo.DoublePlus(69); };
-	f = std::bind(&Foo::DoublePlus, std::ref(myfoo), 69);
-
-	f();
-	f();
-	f();
-
+	int(*pStafunc)(int) = &Foo::DoStatic;
+	std::cout << pStafunc(-420) << std::endl;
 
 	while (!_kbhit());
 	return 0;

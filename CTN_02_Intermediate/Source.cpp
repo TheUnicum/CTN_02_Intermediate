@@ -5,46 +5,52 @@
 #include <memory>
 #include <functional>
 
-class StringSwitch
+
+void SixtyNine()
 {
-public:
-	std::function<void()>& Case(std::string str)	// set function of our case
+	std::cout << "the sex number";
+}
+
+void FourTwenty()
+{
+	std::cout << "the weed number";
+}
+
+struct Foo
+{
+	int y = 3;
+	int DoublePlus(int x)
 	{
-		return map[str];
+		return x * 2 + y;
 	}
-	std::function<void()>& Default()
+	int TriplePlus(int x)
 	{
-		return def;
+		return x * 3 + y;
 	}
-	void operator[](const std::string& str) const
-	{
-		auto i = map.find(str);	//map[str]();
-		if (i != map.end())
-		{
-			i->second();
-		}
-		else
-		{
-			def();
-		}
-	}
-private:
-	std::unordered_map<std::string, std::function<void()>> map;
-	std::function<void()> def = []() {};
 };
 
 
 int main()
 {
-	int x = 69;
+	//std::unordered_map<std::string, std::function<void()>> sw;
 
-	StringSwitch sw;
-	sw.Case("foo") = [&]() {std::cout << "you did a foo" << x; };
-	sw.Case("bar") = []() {std::cout << "you did a bar"; };
-	sw.Default() = []() {std::cout << "idkwtf that is"; };
+	//sw["sixty-nine"] = []()
+	//{
+	//	std::cout << "the sex number";
+	//};
+	//sw["four-twenty"] = FourTwenty;
 
-	sw["foo"];
-	sw["pubes"];
+	//sw["sixty-nine"]();
+
+	int(Foo::*pFooFunc)(int);
+
+	pFooFunc = &Foo::DoublePlus;
+
+	Foo f;
+	Foo* pf = &f;
+
+	std::cout << (f.*pFooFunc)(4) << std::endl;
+	std::cout << (pf->*pFooFunc)(4) << std::endl;
 
 	while (!_kbhit());
 	return 0;

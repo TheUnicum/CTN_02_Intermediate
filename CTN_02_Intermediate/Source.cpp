@@ -29,37 +29,24 @@ struct Foo
 	}
 };
 
+void Thiong(int x)
+{
+	std::cout << x << " some bullshit";
+}
+
 
 int main()
 {
-	//std::unordered_map<std::string, std::function<void()>> sw;
+	std::unordered_map<std::string, std::function<void()>> sw;
 
-	//sw["sixty-nine"] = []()
-	//{
-	//	std::cout << "the sex number";
-	//};
-	//sw["four-twenty"] = FourTwenty;
+	sw["sixty-nine"] = []()
+	{
+		std::cout << "the sex number";
+	};
+	sw["four-twenty"] = FourTwenty;
+	sw["bs"] = std::bind(Thiong, 69);
 
-	//sw["sixty-nine"]();
-
-	int(Foo::*pFooFunc)(int);
-
-
-	//1.
-	pFooFunc = &Foo::DoublePlus;
-
-	Foo f;
-	Foo* pf = &f;
-
-	std::cout << (f.*pFooFunc)(4) << std::endl;
-	std::cout << (pf->*pFooFunc)(4) << std::endl;
-
-
-	//2.
-	std::function<int(Foo, int)>;
-
-	std::function<int(Foo, int)> func = &Foo::TriplePlus;
-	std::cout << func(f, 4) << std::endl;
+	sw["bs"]();
 
 	while (!_kbhit());
 	return 0;

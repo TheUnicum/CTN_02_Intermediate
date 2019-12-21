@@ -48,16 +48,21 @@ int main()
 
 	//sw["bs"]();
 
+	std::function<int(Foo&, int)> f1 = &Foo::DoublePlus;
+	auto f2 = std::mem_fn(&Foo::TriplePlus);
+
+	Foo myfoo;
+
 	std::function<void()> f;
 
 	int x = 1;
-	f = std::bind(Thiong, std::ref(x));
+	f = [&myfoo]() { myfoo.DoublePlus(69); };
+	f = std::bind(&Foo::DoublePlus, std::ref(myfoo), 69);
 
 	f();
 	f();
 	f();
 
-	std::cout << x;
 
 	while (!_kbhit());
 	return 0;

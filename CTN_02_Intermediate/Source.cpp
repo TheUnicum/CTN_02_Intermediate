@@ -29,24 +29,29 @@ struct Foo
 	}
 };
 
-void Thiong(int x)
+int Thiong(int x, int y)
 {
-	std::cout << x << " some bullshit";
+	return x + y;
 }
 
 
 int main()
 {
-	std::unordered_map<std::string, std::function<void()>> sw;
+	//std::unordered_map<std::string, std::function<void()>> sw;
 
-	sw["sixty-nine"] = []()
-	{
-		std::cout << "the sex number";
-	};
-	sw["four-twenty"] = FourTwenty;
-	sw["bs"] = std::bind(Thiong, 69);
+	//sw["sixty-nine"] = []()
+	//{
+	//	std::cout << "the sex number";
+	//};
+	//sw["four-twenty"] = FourTwenty;
+	//sw["bs"] = std::bind(Thiong, 69);
 
-	sw["bs"]();
+	//sw["bs"]();
+
+	std::function<int(int)> f;
+	f = std::bind(Thiong, std::placeholders::_1, 69);
+
+	std::cout << f(1);
 
 	while (!_kbhit());
 	return 0;
